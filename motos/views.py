@@ -1,7 +1,9 @@
-from django.http import HttpResponse
+from django.shortcuts import render
 
 
 def motos_view(request):
-    return HttpResponse('Minhas motos')
+    return render(request, 
+                  'motos.html', 
+    )
 
 
