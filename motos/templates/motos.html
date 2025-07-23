@@ -2,8 +2,11 @@
     <head>
         <title>Minhas motos</title>
     </head>
-    <body>
-        <h1>JJT Motorcycles</h1>
-        <h3>Catálogo de motos</h3>
-    </body>
+    {% block content %}
+        <body>
+            {% for moto in motos %}
+                <h3>{{ moto.brand }} - {{ moto.model }} - {{ moto.factor_year}}</h3>
+            {% endfor %}
+        </body>
+    {% endblock %}
 </html>
