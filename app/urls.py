@@ -22,7 +22,7 @@ from motos.views import motos_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('motos/', motos_view),
+    path('motos/', motos_view, name='motos_list'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
