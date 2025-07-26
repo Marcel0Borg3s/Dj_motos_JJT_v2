@@ -1,3 +1,5 @@
+{% extends "base.html" %}
+
 {% block content %}
   <style>
     .moto-grid {
@@ -10,12 +12,14 @@
     }
 
     .moto-card {
-      background-color: #e3e1e1;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+      background-color: rgba(255, 255, 255, 0.05); /* fundo translúcido escuro */
+      color: #f0f0f0; /* texto claro */
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
       border-radius: 10px;
       overflow: hidden;
       text-align: center;
       transition: all 0.3s ease;
+      backdrop-filter: blur(5px); /* efeito glassmorphism opcional */
     }
 
     .moto-card:hover {
@@ -39,11 +43,13 @@
     .moto-card h2 {
       font-size: 1.5rem;
       margin: 10px;
+      color: #00b4d8;
     }
 
     .moto-card p {
       font-size: 1rem;
       margin-bottom: 10px;
+      color: #f0f0f0;
     }
 
     @media (max-width: 768px) {
