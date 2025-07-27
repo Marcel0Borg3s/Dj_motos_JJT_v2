@@ -18,7 +18,5 @@ def motos_view(request):
 
 def new_moto_view(request):
     new_moto_form = MotoForm()
-    return render(request, 'new_moto.html', {'form': new_moto_form})
-
-
+    return render(request, 'new_moto.html', { 'new_moto_form': new_moto_form})
 
