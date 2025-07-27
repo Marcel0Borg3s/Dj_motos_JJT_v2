@@ -18,11 +18,12 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
-from motos.views import motos_view
+from motos.views import motos_view, new_moto_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('motos/', motos_view, name='motos_list'),
+    path('new_moto/', 'new_moto_view', name='new_moto'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
