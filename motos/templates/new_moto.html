@@ -4,7 +4,15 @@
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
 
-        {{ new_moto_form }}
+        <table>
+            {{ new_moto_form.as_table }}
+
+        </table>
+
+        <input type="submit" value="Cadastrar" class="btn btn-primary">
+
+
+
     </form>
 
 
