@@ -21,7 +21,7 @@ def new_moto_view(request):
         new_moto_form = MotoForm(request.POST, request.FILES)
         if new_moto_form.is_valid():
             new_moto_form.save()
-            return redirect('motos_view')
+            return redirect('motos_list')
          
     else:
         new_moto_form = MotoForm()
