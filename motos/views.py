@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from motos.models import Motos
-from motos.forms import MotoForm
+from motos.forms import MotoModelForm
 
 def motos_view(request):
     motos = Motos.objects.all().order_by('model')
@@ -18,12 +18,12 @@ def motos_view(request):
 
 def new_moto_view(request):
     if request.method == 'POST':
-        new_moto_form = MotoForm(request.POST, request.FILES)
+        new_moto_form = MotoModelForm(request.POST, request.FILES)
         if new_moto_form.is_valid():
             new_moto_form.save()
             return redirect('motos_list')
          
     else:
-        new_moto_form = MotoForm()
+        new_moto_form = MotoModelForm()
     return render(request, 'new_moto.html', { 'new_moto_form': new_moto_form})
 
