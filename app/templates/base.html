@@ -62,12 +62,27 @@
         </div>
         <nav>
           <ul class="nav">
+            {% if user.is_authenticated %}
+              <li>Olá, {{ user.username }}</li>
+              <a class="nav-link" href="{% url 'new_moto' %}">Nova Moto</a>
+            {% endif %}
+            {% if not user.is_authenticated %}
+              <li><a href="{% url 'register' %}">Cadastrar usuário</a></li>
+              <li><a href="{% url 'login' %}">Login</a></li>
+            {% endif %}
+
+
             <li class="nav-item">
               <a class="nav-link" href="{% url 'motos_list' %}">Motos</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'new_moto' %}">Nova Moto</a>
             </li>
+
+            {% if user.is_authenticated %}
+              <li><a href="{% url 'logout' %}">Sair</a></li>
+            {% endif %}
+
+
           </ul>
         </nav>
       </div>
