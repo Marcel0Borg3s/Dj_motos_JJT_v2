@@ -62,24 +62,32 @@
         </div>
         <nav>
           <ul class="nav">
-            {% if user.is_authenticated %}
-              <li>Olá, {{ user.username }}</li>
-              <a class="nav-link" href="{% url 'new_moto' %}">Nova Moto</a>
-            {% endif %}
-            {% if not user.is_authenticated %}
-              <li><a href="{% url 'register' %}">Cadastrar usuário</a></li>
-              <li><a href="{% url 'login' %}">Login</a></li>
-            {% endif %}
-
-
+            
+            <!-- Menu de navegação Motos -->
             <li class="nav-item">
               <a class="nav-link" href="{% url 'motos_list' %}">Motos</a>
             </li>
             <li class="nav-item">
             </li>
-
+                
+            <!-- Menu de navegação Login  -->
             {% if user.is_authenticated %}
-              <li><a href="{% url 'logout' %}">Sair</a></li>
+              <li>Olá, {{ user.username }}</li>
+              <a href="{% url 'new_moto' %}" class="btn btn-secondary">Nova Moto</a>
+              <a href="{% url 'register' %}" class="btn btn-secondary">Novo usuário</a>
+            {% endif %}
+            
+            <!-- Menu de navegação não logado -->
+            {% if not user.is_authenticated %}
+              <li>
+                <li>Seja bem-vindo!</li>
+                <a href="{% url 'login' %}" class="btn btn-secondary">Login</a>
+              </li>
+            {% endif %}
+
+            <!-- Menu de navegação Sair -->
+            {% if user.is_authenticated %}
+              <a href="{% url 'logout' %}" class="btn btn-secondary">Sair</a>
             {% endif %}
 
 
