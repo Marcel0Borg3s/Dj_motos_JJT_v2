@@ -1,6 +1,6 @@
 from motos.models import Motos
 from motos.forms import MotoModelForm
-from django.views.generic import CreateView, ListView 
+from django.views.generic import CreateView, DetailView, ListView 
 
 class MotosListView(ListView):
     model = Motos
@@ -20,3 +20,6 @@ class NewMotoCreateView(CreateView):
     template_name = 'new_moto.html'
     success_url = '/motos/'
 
+class MotoDetailView(DetailView):
+    model = Motos
+    template_name = 'moto_detail.html'
