@@ -23,7 +23,7 @@
     }
 
     .moto-card:hover {
-      cursor: pointer;
+      cursor: pointer; 
       box-shadow: 0 6px 16px rgba(0, 0, 0, 0.7);
       transform: translateY(-4px) scale(1.02);
     }
@@ -97,6 +97,12 @@
       background-color: #00b4d8;
     }
 
+    a {
+      font-size: 18px;
+      color: #333;
+      text-decoration: none;
+    }
+
   </style>
 
   <form method="GET" action="{% url 'motos_list' %}">
@@ -107,11 +113,13 @@
   <div class="moto-grid">
     {% if motos %}
       {% for moto in motos %}
-        <div class="moto-card">
-          <img src="{{ moto.photo.url }}" alt="{{ moto.model }} - {{ moto.brand }}">
-          <h2>{{ moto.brand }} {{ moto.model }}</h2>
-          <p>{{ moto.factory_year }} - R$ {{ moto.value }}</p>
-        </div>
+        <a href="{% url 'moto_detail' moto.pk %}">
+          <div class="moto-card">
+            <img src="{{ moto.photo.url }}" alt="{{ moto.model }} - {{ moto.brand }}">
+            <h2>{{ moto.brand }} {{ moto.model }}</h2>
+            <p>{{ moto.factor_year }} - R$ {{ moto.value }}</p>
+          </div>
+        </a>
       {% endfor %}
     {% else %}
       <p class="no-results">Nenhuma moto encontrada.</p>

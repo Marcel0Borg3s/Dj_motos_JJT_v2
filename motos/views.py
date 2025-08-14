@@ -23,3 +23,4 @@ class NewMotoCreateView(CreateView):
 class MotoDetailView(DetailView):
     model = Motos
     template_name = 'moto_detail.html'
+
