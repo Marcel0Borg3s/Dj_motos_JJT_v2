@@ -1,19 +1,24 @@
 {% extends "base.html" %}
 
 {% block content %}
+<div class="container-custom">
+  <div class="form-custom fade-in-custom">
+    <h2 class="text-center-custom mb-custom-3">Cadastrar Nova Moto</h2>
+    
     <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-
-        <table>
-            {{ form.as_table }}
-
+      {% csrf_token %}
+      
+      <div class="table-custom">
+        <table style="width: 100%; border: none; background: transparent;">
+          {{ form.as_table }}
         </table>
-
-        <input type="submit" value="Cadastrar" class="btn btn-primary">
-
-
-
+      </div>
+      
+      <div class="text-center-custom mt-custom-3">
+        <button type="submit" class="btn-custom btn-success-custom">Cadastrar Moto</button>
+        <a href="{% url 'motos_list' %}" class="btn-custom btn-secondary-custom">Cancelar</a>
+      </div>
     </form>
-
-
+  </div>
+</div>
 {% endblock %}

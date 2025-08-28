@@ -9,8 +9,10 @@ class MotoModelForm(forms.ModelForm):
     # Crianda validação/erros a partir de dados definidos
     def clean_value(self):
         value = self.cleaned_data.get('value')
-        if value <= 999:
-            self.add_error('value', "O valor deve ser maior que 999.")
+        if value in [None, ""]:
+            return None
+        if value <= 0:
+            raise forms.ValidationError ("Ovalor deve ser maior que zero!")
         return value
     
     def clean_factor_year(self):

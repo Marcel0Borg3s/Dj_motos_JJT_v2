@@ -16,6 +16,18 @@ class Motos(models.Model):
     plate = models.CharField(max_length=10, blank=True, null=True)
     value = models.FloatField(blank=True, null=True)
     photo = models.ImageField(upload_to='motos/', blank=True, null=True)
+    bio = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return self.model
+
+class MotoInventory(models.Model):
+    motos_count = models.IntegerField()
+    motos_value = models.FloatField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-created_at']
+    
+    def __str__(self):
+        return f'{self.motos_count} - {self.motos_value}'

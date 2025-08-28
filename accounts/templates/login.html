@@ -1,19 +1,40 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <form method="post">
-        {% csrf_token %}
+<div class="container-custom">
+    <div class="form-custom fade-in-custom">
+        <h2 class="text-center-custom mb-custom-3">Login</h2>
+        
+        <form method="post">
+            {% csrf_token %}
 
-        <table>
-            {{ login_form.as_table }}
-        </table>
+            <div class="form-group-custom">
+                <label class="form-label-custom" for="{{ login_form.username.id_for_label }}">Usuário:</label>
+                {{ login_form.username.errors }}
+                <input type="text" 
+                       class="form-control-custom" 
+                       id="{{ login_form.username.id_for_label }}" 
+                       name="{{ login_form.username.name }}" 
+                       value="{{ login_form.username.value|default:'' }}"
+                       placeholder="Digite seu usuário"
+                       required>
+            </div>
 
-        <input type="submit" value="Entrar">
-    </form>
+            <div class="form-group-custom">
+                <label class="form-label-custom" for="{{ login_form.password.id_for_label }}">Senha:</label>
+                {{ login_form.password.errors }}
+                <input type="password" 
+                       class="form-control-custom" 
+                       id="{{ login_form.password.id_for_label }}" 
+                       name="{{ login_form.password.name }}"
+                       placeholder="Digite sua senha"
+                       required>
+            </div>
+
+            <div class="text-center-custom mt-custom-3">
+                <button type="submit" class="btn-custom btn-primary-custom">Entrar</button>
+            </div>
+        </form>
+    </div>
+</div>
 {% endblock %}
-
-
-
-
-
-

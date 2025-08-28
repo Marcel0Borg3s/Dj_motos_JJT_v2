@@ -1,129 +1,55 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
-  <style>
-    .moto-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-      margin: 0 auto;
-      max-width: 1200px;
-      padding: 20px;
-    }
+<div class="container-custom">
+  <!-- Formulário de busca -->
+  <div class="search-container-custom">
+    <form method="GET" action="{% url 'motos_list' %}">
+      <input type="text" 
+             name="search" 
+             class="search-input-custom" 
+             placeholder="Buscar moto por marca, modelo ou ano..."
+             value="{{ request.GET.search }}">
+      <button type="submit" class="btn-custom btn-primary-custom">Buscar</button>
+    </form>
+  </div>
 
-    .moto-card {
-      background-color: rgba(0, 0, 0, 0.45); /* fundo translúcido escuro */
-      color: #f8f9fa;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
-      border-radius: 10px;
-      overflow: hidden;
-      text-align: center;
-      transition: all 0.3s ease;
-      backdrop-filter: blur(8px); /* efeito vidro */
-    }
-
-    .moto-card:hover {
-      cursor: pointer; 
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.7);
-      transform: translateY(-4px) scale(1.02);
-    }
-
-    .moto-card img {
-      width: 100%;
-      height: 220px;
-      object-fit: cover;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .moto-card h2 {
-      font-size: 1.6rem;
-      margin: 12px 0 8px;
-      color: #00d4ff; /* destaque */
-    }
-
-    .moto-card p {
-      font-size: 1rem;
-      margin: 6px 0;
-      color: #e0e0e0;
-    }
-
-    .moto-card strong {
-      color: #00ff99; /* rótulos verdes */
-    }
-
-    @media (max-width: 768px) {
-      .moto-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    form {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-bottom: 20px;
-      text-align: center;
-      padding: 20px;
-    }
-
-    input[type="text"] {
-      padding: 10px;
-      font-size: 16px;
-      border: 2px solid #444;
-      background-color: #222;
-      color: #f8f9fa;
-      border-radius: 4px;
-      margin-right: 10px;
-      transition: border-color 0.3s ease-in-out;
-    }
-
-    input[type="text"]:focus {
-      outline: none;
-      border-color: #00d4ff;
-    }
-
-    button[type="submit"] {
-      background-color: #0096c7;
-      color: #fff;
-      border: none;
-      padding: 10px 20px;
-      font-size: 16px;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: background-color 0.3s ease-in-out;
-    }
-
-    button[type="submit"]:hover {
-      background-color: #00b4d8;
-    }
-
-    a {
-      font-size: 18px;
-      color: #333;
-      text-decoration: none;
-    }
-
-  </style>
-
-  <form method="GET" action="{% url 'motos_list' %}">
-    <input type="text" name="search" placeholder="Buscar moto...">
-    <button type="submit">Buscar</button>
-  </form>
-
-  <div class="moto-grid">
+  <!-- Grid de motos -->
+  <div class="grid-custom grid-3">
     {% if motos %}
       {% for moto in motos %}
-        <a href="{% url 'moto_detail' moto.pk %}">
-          <div class="moto-card">
-            <img src="{{ moto.photo.url }}" alt="{{ moto.model }} - {{ moto.brand }}">
-            <h2>{{ moto.brand }} {{ moto.model }}</h2>
-            <p>{{ moto.factor_year }} - R$ {{ moto.value }}</p>
+        <a href="{% url 'moto_detail' moto.pk %}" style="text-decoration: none;">
+          <div class="card-custom fade-in-custom">
+            {% if moto.photo %}
+              <img src="{{ moto.photo.url }}" alt="{{ moto.model }} - {{ moto.brand }}" class="card-img-custom">
+            {% else %}
+              <img src="{% static 'images/no-photo.png' %}" alt="Sem foto disponível" class="card-img-custom">
+            {% endif %}
+              
+            <div class="card-body-custom">
+              <h3 class="card-title-custom">{{ moto.brand }} {{ moto.model }}</h3>
+              <p class="card-text-custom">
+                <span class="text-highlight-custom">Ano:</span> {{ moto.factor_year }}<br>
+                <span class="text-highlight-custom">Modelo:</span> {{ moto.model_year }}<br>
+                <span class="text-highlight-custom">Preço:</span>
+                {% if moto.value %}
+                  R$ {{ moto.value }}
+                {% else %}
+                  Consulte
+                {% endif %}
+              </p>
+            </div>
           </div>
         </a>
       {% endfor %}
     {% else %}
-      <p class="no-results">Nenhuma moto encontrada.</p>
+      <div class="text-center-custom" style="grid-column: 1 / -1;">
+        <h3 class="text-muted-custom">Nenhuma moto encontrada</h3>
+        <p class="text-muted-custom">Tente ajustar os filtros de busca ou adicione uma nova moto.</p>
+      </div>
     {% endif %}
   </div>
+</div>
 {% endblock %}
 

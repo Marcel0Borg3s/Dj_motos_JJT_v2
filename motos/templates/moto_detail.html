@@ -1,94 +1,68 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <style>
-    .moto-card {
-      background-color: #111111;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-      border-radius: 10px;
-      overflow: hidden;
-      text-align: center;
-      transition: all 0.3s ease;
-      max-width: 500px;
-      margin: 20px auto 0;
-      margin-bottom: 20px;
-    }
+<div class="container-custom">
+  <div class="card-custom fade-in-custom" style="max-width: 600px; margin: 0 auto;">
+    <img src="{{ object.photo.url }}" alt="{{ object.model }} - {{ object.brand }}" class="card-img-custom">
+    
+    <div class="card-header-custom">
+      <h2 class="card-title-custom text-center-custom">{{ object.brand }} {{ object.model }}</h2>
+    </div>
+    
+    <div class="card-body-custom">
+      <div class="row">
+        <div class="col-md-6">
+          <p class="card-text-custom">
+            <span class="text-highlight-custom">Ano de fabricação:</span><br>
+            {{ object.factor_year }}
+          </p>
+        </div>
+        <div class="col-md-6">
+          <p class="card-text-custom">
+            <span class="text-highlight-custom">Ano do modelo:</span><br>
+            {{ object.model_year }}
+          </p>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-md-6">
+          <p class="card-text-custom">
+            <span class="text-highlight-custom">Placa:</span><br>
+            {{ object.plate }}
+          </p>
+        </p>
 
-    .moto-card:hover {
-      cursor: pointer;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-      transform: translateY(-2px);
-    }
-
-    .moto-card img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-    }
-
-    .moto-card h2 {
-      font-size: 2rem;
-      margin: 10px;
-    }
-
-    .moto-card p {
-      font-size: 1.1rem;
-      margin-bottom: 10px;
-    }
-
-    .buttons-container {
-      display: flex;
-      justify-content: center;
-      margin-top: 20px;
-      margin-bottom: 20px;
-    }
-
-    .btn {
-      display: inline-block;
-      background-color: #0096c7;
-      color: #fff;
-      border: none;
-      padding: 10px 20px;
-      font-size: 16px;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: background-color 0.3s ease-in-out;
-      margin: 0 10px;
-    }
-
-    .btn:hover {
-      background-color: #108eb8;
-    }
-
-    .btn-danger {
-      background-color: #d9534f;
-      text-decoration: none !important;
-    }
-
-    .btn-danger:hover {
-      background-color: #d2221c;
-    }
-
-    .error-message {
-      color: #d9534f;
-      font-size: 14px;
-      margin-top: 5px;
-    }
-
-    a {
-      text-decoration: none !important;
-    }
-  </style>
-  <div class="moto-card">
-      <img src="{{ object.photo.url }}" alt="{{ object.model }} - {{ object.brand }}">
-      <h2>{{ object.brand }} {{ object.model }}</h2>
-      <p><strong>Ano de fabricação:</strong> {{ object.factor_year }}</p>
-      <p><strong>Ano do modelo:</strong> {{ object.model_year }}</p>
-      <p><strong>Placa:</strong> {{ object.plate }}</p>
-      <p><strong>Preço:</strong> R$ {{ object.value }}</p>
+        {% if object.bio %}
+          <p class="card-text-custom">
+            <span class="text-highlight-custom">Detalhes: </span><br>
+            <strong style="font-size: 1.2em; color: #f4f4f4;"> {{ object.bio }}</strong>
+          </p>
+        {% endif %}
+      </div>
+        
+      <div class="col-md-6">
+        <p class="card-text-custom">
+          <span class="text-highlight-custom">Preço:</span><br>
+          <strong style="font-size: 1.2em; color: #f4f4f4;">
+            {% if object.value %}
+              R$ {{ object.value }}
+            {% else %}
+            Consulte
+            {% endif %}
+          </strong>
+        </p>
+      </div>
+      
+    </div>
+    {% if user.is_authenticated %}
+      <div class="card-footer-custom text-center-custom">
+        <a href="{% url 'moto_update' pk=object.pk %}" class="btn-custom btn-primary-custom">Editar Moto</a>
+        <a href="{% url 'motos_list' %}" class="btn-custom btn-secondary-custom">Voltar à Lista</a>
+        <a href="{% url 'moto_delete' pk=object.pk %}" class="btn-custom btn-danger-custom">Deletar</a>
+    </div>
+    {% endif %}
   </div>
-  <div class="buttons-container">
-    <a href="{% url 'moto_update' pk=object.pk %}" class="btn-primary">Editar</a>
-  </div>
+</div>
 {% endblock %}
 
