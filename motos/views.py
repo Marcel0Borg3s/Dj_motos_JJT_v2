@@ -41,3 +41,5 @@ class MotoDeleteView(DeleteView):
     model = Motos
     template_name = 'moto_delete.html'
     success_url = '/motos/'
+
+    
