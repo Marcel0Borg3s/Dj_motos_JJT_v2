@@ -7,7 +7,7 @@ class BrandAdmin(admin.ModelAdmin):
 
 class MotosAdmin(admin.ModelAdmin):
     list_display = ('model', 'brand', 'factor_year', 'model_year', 'value')
-    search_fields = ('model',)
+    search_fields = ('model', )
 
 admin.site.register(Brand, BrandAdmin)
 admin.site.register(Motos, MotosAdmin)

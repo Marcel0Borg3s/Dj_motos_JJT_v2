@@ -15,6 +15,7 @@ class MotosListView(ListView):
         search = self.request.GET.get('search')
         if search:
             motos = motos.filter(model__icontains=search)
+
         return motos
 
 @method_decorator(login_required(login_url='login'), name='dispatch')
@@ -42,4 +43,5 @@ class MotoDeleteView(DeleteView):
     template_name = 'moto_delete.html'
     success_url = '/motos/'
 
+    
     

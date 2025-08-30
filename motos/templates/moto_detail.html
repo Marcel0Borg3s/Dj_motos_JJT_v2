@@ -1,9 +1,15 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
 <div class="container-custom">
   <div class="card-custom fade-in-custom" style="max-width: 600px; margin: 0 auto;">
-    <img src="{{ object.photo.url }}" alt="{{ object.model }} - {{ object.brand }}" class="card-img-custom">
+    {% if object.photo %}
+      <img src="{{ object.photo.url }}" alt="{{ object.model }} - {{ object.brand }}" class="card-img-custom">
+    {% else %}
+      <img src="{% static 'images/Preparacao.png' %}" alt="Sem foto disponível" class="card-img-custom">
+    {% endif %}
+
     
     <div class="card-header-custom">
       <h2 class="card-title-custom text-center-custom">{{ object.brand }} {{ object.model }}</h2>

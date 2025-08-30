@@ -21,10 +21,10 @@
       {% for moto in motos %}
         <a href="{% url 'moto_detail' moto.pk %}" style="text-decoration: none;">
           <div class="card-custom fade-in-custom">
-            {% if moto.photo %}
+            {% if moto.photo and moto.photo.url %}
               <img src="{{ moto.photo.url }}" alt="{{ moto.model }} - {{ moto.brand }}" class="card-img-custom">
             {% else %}
-              <img src="{% static 'images/no-photo.png' %}" alt="Sem foto disponível" class="card-img-custom">
+              <img src="{% static 'images/Preparacao.png' %}" alt="Sem foto disponível" class="card-img-custom">
             {% endif %}
               
             <div class="card-body-custom">
