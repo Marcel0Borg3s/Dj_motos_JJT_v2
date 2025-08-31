@@ -31,3 +31,7 @@ class MotoInventory(models.Model):
     
     def __str__(self):
         return f'{self.motos_count} - {self.motos_value}'
+    
+class MotosPhotosMulti():
+    ...
+    
