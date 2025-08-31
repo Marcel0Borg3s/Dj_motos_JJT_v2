@@ -1,47 +1,74 @@
-from motos.models import Motos
-from motos.forms import MotoModelForm
-from django.contrib.auth.decorators import login_required
+from django.forms import inlineformset_factory
 from django.urls import reverse_lazy
-from django.utils.decorators import method_decorator
-from django.views.generic import CreateView, DeleteView, DetailView, ListView, UpdateView
+from django.views.generic import ListView, DetailView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from .models import Moto, ImagemMoto  
+from .forms import MotoForm
 
 class MotosListView(ListView):
-    model = Motos
-    template_name = 'motos.html'
+    model = Moto
+    template_name = 'motos/motos_list.html'
     context_object_name = 'motos'
 
-    def get_queryset(self):
-        motos = super().get_queryset().order_by('model')
-        search = self.request.GET.get('search')
-        if search:
-            motos = motos.filter(model__icontains=search)
-
-        return motos
-
-@method_decorator(login_required(login_url='login'), name='dispatch')
-class NewMotoCreateView(CreateView):
-    model = Motos
-    form_class = MotoModelForm
-    template_name = 'new_moto.html'
-    success_url = '/motos/'
-
 class MotoDetailView(DetailView):
-    model = Motos
-    template_name = 'moto_detail.html'
+    model = Moto
+    template_name = 'motos/moto_detail.html'
 
-@method_decorator(login_required(login_url='login'), name='dispatch')
-class MotoUpdateView(UpdateView):
-    model = Motos
-    form_class = MotoModelForm
-    template_name = 'moto_update.html'
-    def get_success_url(self):
-        return reverse_lazy('moto_detail', kwargs={'pk': self.object.pk})
+class NewMotoCreateView(LoginRequiredMixin, CreateView):
+    model = Moto
+    form_class = MotoForm
+    template_name = 'motos/moto_form.html'
+    success_url = reverse_lazy('motos_list')
 
-@method_decorator(login_required(login_url='login'), name='dispatch')
-class MotoDeleteView(DeleteView):
-    model = Motos
-    template_name = 'moto_delete.html'
-    success_url = '/motos/'
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        ImagemFormSet = inlineformset_factory(Moto, ImagemMoto, fields=('imagem',), extra=1)
+        if self.request.POST:
+            data['imagens_form'] = ImagemFormSet(self.request.POST, self.request.FILES)
+        else:
+            data['imagens_form'] = ImagemFormSet()
+        return data
 
-    
-    
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        context = self.get_context_data()
+        imagens_form = context['imagens_form']
+        if imagens_form.is_valid():
+            self.object = form.save()
+            imagens_form.instance = self.object
+            imagens_form.save()
+            return super().form_valid(form)
+        else:
+            return self.render_to_response(self.get_context_data(form=form))
+
+class MotoUpdateView(LoginRequiredMixin, UpdateView):
+    model = Moto
+    form_class = MotoForm
+    template_name = 'motos/moto_form.html'
+    success_url = reverse_lazy('motos_list')
+
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        ImagemFormSet = inlineformset_factory(Moto, ImagemMoto, fields=('imagem',), extra=1, can_delete=True)
+        if self.request.POST:
+            data['imagens_form'] = ImagemFormSet(self.request.POST, self.request.FILES, instance=self.object)
+        else:
+            data['imagens_form'] = ImagemFormSet(instance=self.object)
+        return data
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        imagens_form = context['imagens_form']
+        if imagens_form.is_valid():
+            self.object = form.save()
+            imagens_form.instance = self.object
+            imagens_form.save()
+            return super().form_valid(form)
+        else:
+            return self.render_to_response(self.get_context_data(form=form))
+
+class MotoDeleteView(LoginRequiredMixin, DeleteView):
+    model = Moto
+    template_name = 'motos/moto_delete.html'
+    success_url = reverse_lazy('motos_list')

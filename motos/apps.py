@@ -6,4 +6,5 @@ class MotosConfig(AppConfig):
     name = 'motos'
 
     def ready(self):
-        import motos.signals
+        #import motos.signals
+        pass

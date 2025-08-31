@@ -1,41 +1,22 @@
 from django.db import models
+from django.contrib.auth.models import User
 
-class Brand(models.Model):
-    id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=100)
-
-    def __str__(self):
-        return self.name
-
-class Motos(models.Model):
-    id = models.AutoField(primary_key=True)
+class Moto(models.Model):
     model = models.CharField(max_length=200)
-    brand = models.ForeignKey(Brand, on_delete=models.PROTECT, related_name='motos_brand')
-    factor_year = models.IntegerField(blank=True, null=True)
-    model_year = models.IntegerField(blank=True, null=True)
-    plate = models.CharField(max_length=10, blank=True, null=True)
-    value = models.FloatField(blank=True, null=True)
-    #photo = models.ImageField(upload_to='motos/', blank=True, null=True)
-    bio = models.TextField(blank=True, null=True)
+    brand = models.CharField(max_length=200)
+    factor_year = models.IntegerField()
+    model_year = models.IntegerField()
+    plate = models.CharField(max_length=10, unique=True)
+    value = models.FloatField(null=True, blank=True)
+    bio = models.TextField(null=True, blank=True)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.model
 
-class MotoInventory(models.Model):
-    motos_count = models.IntegerField()
-    motos_value = models.FloatField()
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    class Meta:
-        ordering = ['-created_at']
-    
-    def __str__(self):
-        return f'{self.motos_count} - {self.motos_value}'
-    
 class ImagemMoto(models.Model):
-    moto = models.ForeignKey(Motos, related_name='imagens', on_delete=models.CASCADE)
-    imagem = models.ImageField(upload_to='motos_adicionais/')
+    moto = models.ForeignKey(Moto, related_name='imagens', on_delete=models.CASCADE)
+    imagem = models.ImageField(upload_to='motos_galeria/')
 
     def __str__(self):
-        return f"Imagem para {self.moto.modelo}"
-  
+        return f"Imagem para {self.moto.model}"
