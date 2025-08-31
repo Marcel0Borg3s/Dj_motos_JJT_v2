@@ -15,7 +15,7 @@ class Motos(models.Model):
     model_year = models.IntegerField(blank=True, null=True)
     plate = models.CharField(max_length=10, blank=True, null=True)
     value = models.FloatField(blank=True, null=True)
-    photo = models.ImageField(upload_to='motos/', blank=True, null=True)
+    #photo = models.ImageField(upload_to='motos/', blank=True, null=True)
     bio = models.TextField(blank=True, null=True)
 
     def __str__(self):
@@ -32,6 +32,10 @@ class MotoInventory(models.Model):
     def __str__(self):
         return f'{self.motos_count} - {self.motos_value}'
     
-class MotosPhotosMulti():
-    ...
+class ImagemMoto(models.Model):
+    moto = models.ForeignKey(Motos, related_name='imagens', on_delete=models.CASCADE)
+    imagem = models.ImageField(upload_to='motos_adicionais/')
+
+    def __str__(self):
+        return f"Imagem para {self.moto.modelo}"
   

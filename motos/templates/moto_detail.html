@@ -4,29 +4,59 @@
 {% block content %}
 <div class="container-custom">
   <div class="card-custom fade-in-custom" style="max-width: 600px; margin: 0 auto;">
-    {% if object.photo %}
-      <img src="{{ object.photo.url }}" alt="{{ object.model }} - {{ object.brand }}" class="card-img-custom">
+
+    <!-- =================================================================== -->
+    <!-- INÍCIO DA ALTERAÇÃO: Substitua o <img> antigo por este carrossel -->
+    <!-- =================================================================== -->
+    
+    {% if moto.imagens.all %}
+      <div id="carrosselDeImagens" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          {% for imagem in moto.imagens.all %}
+            <div class="carousel-item {% if forloop.first %}active{% endif %}">
+              <img src="{{ imagem.imagem.url }}" class="d-block w-100 card-img-custom" alt="Foto de {{ moto.modelo }}">
+            </div>
+          {% endfor %}
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carrosselDeImagens" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Anterior</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carrosselDeImagens" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Próxima</span>
+        </button>
+      </div>
     {% else %}
+      <!-- Caso não haja nenhuma imagem, exibe a imagem padrão -->
       <img src="{% static 'images/Preparacao.png' %}" alt="Sem foto disponível" class="card-img-custom">
     {% endif %}
 
-    
+    <!-- =================================================================== -->
+    <!-- FIM DA ALTERAÇÃO -->
+    <!-- =================================================================== -->
+
     <div class="card-header-custom">
-      <h2 class="card-title-custom text-center-custom">{{ object.brand }} {{ object.model }}</h2>
+      <!-- Observação: O Django passa o objeto como 'object' por padrão em DetailView, 
+           mas podemos usar 'moto' se você renomeou no seu views.py. 
+           Vou usar 'object' para manter a compatibilidade com seu código original. -->
+      <h2 class="card-title-custom text-center-custom">{{ object.marca }} {{ object.modelo }}</h2>
     </div>
     
     <div class="card-body-custom">
       <div class="row">
         <div class="col-md-6">
           <p class="card-text-custom">
-            <span class="text-highlight-custom">Ano de fabricação:</span><br>
-            {{ object.factor_year }}
+            <span class="text-highlight-custom">Ano de fabricação:</span>  
+
+            {{ object.ano_fabricacao }}
           </p>
         </div>
         <div class="col-md-6">
           <p class="card-text-custom">
-            <span class="text-highlight-custom">Ano do modelo:</span><br>
-            {{ object.model_year }}
+            <span class="text-highlight-custom">Ano do modelo:</span>  
+
+            {{ object.ano_modelo }}
           </p>
         </div>
       </div>
@@ -34,41 +64,43 @@
       <div class="row">
         <div class="col-md-6">
           <p class="card-text-custom">
-            <span class="text-highlight-custom">Placa:</span><br>
-            {{ object.plate }}
-          </p>
-        </p>
+            <span class="text-highlight-custom">Placa:</span>  
 
-        {% if object.bio %}
-          <p class="card-text-custom">
-            <span class="text-highlight-custom">Detalhes: </span><br>
-            <strong style="font-size: 1.2em; color: #f4f4f4;"> {{ object.bio }}</strong>
+            {{ object.placa }}
           </p>
-        {% endif %}
-      </div>
+        </div>
         
-      <div class="col-md-6">
-        <p class="card-text-custom">
-          <span class="text-highlight-custom">Preço:</span><br>
-          <strong style="font-size: 1.2em; color: #f4f4f4;">
-            {% if object.value %}
-              R$ {{ object.value }}
-            {% else %}
-            Consulte
-            {% endif %}
-          </strong>
-        </p>
+        <div class="col-md-6">
+          <p class="card-text-custom">
+            <span class="text-highlight-custom">Preço:</span>  
+
+            <strong style="font-size: 1.2em; color: #f4f4f4;">
+              {% if object.preco %}
+                R$ {{ object.preco|floatformat:2 }}
+              {% else %}
+                Consulte
+              {% endif %}
+            </strong>
+          </p>
+        </div>
       </div>
-      
+
+      {% if object.bio %}
+        <p class="card-text-custom mt-3">
+          <span class="text-highlight-custom">Detalhes: </span>  
+
+          <strong style="font-size: 1.2em; color: #f4f4f4;"> {{ object.bio }}</strong>
+        </p>
+      {% endif %}
     </div>
+
     {% if user.is_authenticated %}
       <div class="card-footer-custom text-center-custom">
         <a href="{% url 'moto_update' pk=object.pk %}" class="btn-custom btn-primary-custom">Editar Moto</a>
         <a href="{% url 'motos_list' %}" class="btn-custom btn-secondary-custom">Voltar à Lista</a>
         <a href="{% url 'moto_delete' pk=object.pk %}" class="btn-custom btn-danger-custom">Deletar</a>
-    </div>
+      </div>
     {% endif %}
   </div>
 </div>
 {% endblock %}
-
