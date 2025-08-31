@@ -34,4 +34,4 @@ class MotoInventory(models.Model):
     
 class MotosPhotosMulti():
     ...
-    
+  
