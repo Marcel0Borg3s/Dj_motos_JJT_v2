@@ -15,8 +15,14 @@ class Motos(models.Model):
     model_year = models.IntegerField(blank=True, null=True)
     plate = models.CharField(max_length=10, blank=True, null=True)
     value = models.FloatField(blank=True, null=True)
-    photo = models.ImageField(upload_to='motos/', blank=True, null=True)
     bio = models.TextField(blank=True, null=True)
+    photo = models.ImageField(upload_to='motos/', blank=True, null=True)
+    photo2 = models.ImageField(upload_to='motos/', blank=True, null=True)
+    photo3 = models.ImageField(upload_to='motos/', blank=True, null=True)
+    photo4 = models.ImageField(upload_to='motos/', blank=True, null=True)
+    photo5 = models.ImageField(upload_to='motos/', blank=True, null=True)
+    photo6 = models.ImageField(upload_to='motos/', blank=True, null=True)
+
 
     def __str__(self):
         return self.model

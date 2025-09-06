@@ -2,13 +2,15 @@
 {% load static %}
 
 {% block content %}
-<div class="container-custom">
-  <div class="card-custom fade-in-custom" style="max-width: 600px; margin: 0 auto;">
-    {% if object.photo %}
-      <img src="{{ object.photo.url }}" alt="{{ object.model }} - {{ object.brand }}" class="card-img-custom">
-    {% else %}
-      <img src="{% static 'images/Preparacao.png' %}" alt="Sem foto disponível" class="card-img-custom">
-    {% endif %}
+<div class="photo-gallery">
+  {% if object.photo %}<img src="{{ object.photo.url }}" alt="Foto 1" class="gallery-img">{% endif %}
+  {% if object.photo2 %}<img src="{{ object.photo2.url }}" alt="Foto 2" class="gallery-img">{% endif %}
+  {% if object.photo3 %}<img src="{{ object.photo3.url }}" alt="Foto 3" class="gallery-img">{% endif %}
+  {% if object.photo4 %}<img src="{{ object.photo4.url }}" alt="Foto 4" class="gallery-img">{% endif %}
+  {% if object.photo5 %}<img src="{{ object.photo5.url }}" alt="Foto 5" class="gallery-img">{% endif %}
+  {% if object.photo6 %}<img src="{{ object.photo6.url }}" alt="Foto 6" class="gallery-img">{% endif %}
+</div>
+
 
     
     <div class="card-header-custom">
