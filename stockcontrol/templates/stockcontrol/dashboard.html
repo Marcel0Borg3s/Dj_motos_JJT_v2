@@ -55,15 +55,15 @@
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-md);margin-bottom:var(--space-xl);">
 
   <!-- Donut: Distribuição do Estoque -->
-  <div style="background:var(--card-bg);border:1px solid var(--divider);padding:var(--space-md);">
+  <div style="background:var(--card-bg);border:1px solid var(--divider);padding:var(--space-md);max-height:320px;overflow:hidden;">
     <h3 style="font-size:14px;font-weight:500;color:var(--text-primary);margin-bottom:var(--space-sm);">Distribuição do Estoque</h3>
-    <canvas id="donutChart" height="200"></canvas>
+    <div style="height:220px;"><canvas id="donutChart"></canvas></div>
   </div>
 
   <!-- Barras: Custo vs Anúncio -->
-  <div style="background:var(--card-bg);border:1px solid var(--divider);padding:var(--space-md);">
+  <div style="background:var(--card-bg);border:1px solid var(--divider);padding:var(--space-md);max-height:320px;overflow:hidden;">
     <h3 style="font-size:14px;font-weight:500;color:var(--text-primary);margin-bottom:var(--space-sm);">Custo vs Valor de Anúncio</h3>
-    <canvas id="barChart" height="200"></canvas>
+    <div style="height:220px;"><canvas id="barChart"></canvas></div>
   </div>
 </div>
 
