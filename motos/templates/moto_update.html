@@ -153,8 +153,9 @@
               <div style="display:flex;align-items:center;gap:10px;">
                 <input type="number" name="{{ field.name }}" id="{{ field.id_for_label }}"
                        class="form-input{% if field.errors %} form-input-error{% endif %}"
-                       value="{{ field.value|default:'' }}"
+                       value="{% if field.value %}{{ field.value|stringformat:'.2f' }}{% endif %}"
                        placeholder="{{ field.label }}"
+                       step="0.01"
                        style="flex:1;">
                 <label class="toggle-switch" style="flex-shrink:0;gap:6px;" title="Exibir preço no site">
                   <input type="checkbox" id="showPriceToggle"
@@ -172,7 +173,7 @@
               {% else %}
               <input type="number" name="{{ field.name }}" id="{{ field.id_for_label }}"
                      class="form-input{% if field.errors %} form-input-error{% endif %}"
-                     value="{{ field.value|default:'' }}"
+                     value="{{ field.value|stringformat:'f'|default:'' }}"
                      placeholder="{{ field.label }}">
               {% endif %}
             {% else %}

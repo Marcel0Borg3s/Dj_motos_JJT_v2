@@ -22,6 +22,7 @@
         <tr>
           <th>Moto</th>
           <th>Ano</th>
+          <th class="text-right">Valor Anúncio</th>
           <th class="text-right">Custo Total</th>
           <th class="text-right">Valor Venda</th>
           <th class="text-right">Lucro</th>
@@ -35,6 +36,13 @@
           <tr>
             <td><strong>{{ s.moto.brand }} {{ s.moto.model }}</strong></td>
             <td>{{ s.moto.factor_year|default:'---' }}</td>
+            <td class="text-right">
+              {% if s.moto.value %}
+                R$ {{ s.moto.value }}
+              {% else %}
+                <span class="text-muted">---</span>
+              {% endif %}
+            </td>
             <td class="text-right">R$ {{ s.total_cost|floatformat:2 }}</td>
             <td class="text-right">
               {% if s.sale_value %}
