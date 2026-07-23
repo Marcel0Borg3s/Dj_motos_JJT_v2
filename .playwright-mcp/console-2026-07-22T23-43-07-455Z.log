@@ -1,0 +1,2 @@
+[     445ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:8765/media/motos/Screenshot_2026-03-23_18-58-51.png:0
+[     502ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:8765/favicon.ico:0

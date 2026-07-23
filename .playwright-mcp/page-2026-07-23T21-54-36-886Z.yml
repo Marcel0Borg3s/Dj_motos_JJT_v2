@@ -1,0 +1,118 @@
+- generic [active] [ref=f49e1]:
+  - navigation [ref=f49e2]:
+    - link "JJT JJT Motorcycles" [ref=f49e4] [cursor=pointer]:
+      - /url: /motos/
+      - img "JJT" [ref=f49e5]
+      - generic [ref=f49e6]: JJT Motorcycles
+    - generic [ref=f49e7]:
+      - link "Motos" [ref=f49e8] [cursor=pointer]:
+        - /url: /motos/
+      - link "Controle" [ref=f49e9] [cursor=pointer]:
+        - /url: /stock/
+    - generic [ref=f49e10]:
+      - button "Alternar tema" [ref=f49e11] [cursor=pointer]:
+        - generic [ref=f49e12]: ☾
+      - generic [ref=f49e13]: mborges
+      - link "Sair" [ref=f49e14] [cursor=pointer]:
+        - /url: /logout/
+  - generic [ref=f49e15]:
+    - complementary [ref=f49e16]:
+      - generic [ref=f49e17]: Controle
+      - list [ref=f49e18]:
+        - listitem [ref=f49e19]:
+          - link "■ Dashboard" [ref=f49e20] [cursor=pointer]:
+            - /url: /stock/
+            - generic [ref=f49e21]: ■
+            - text: Dashboard
+        - listitem [ref=f49e22]:
+          - link "☰ Estoque (Planilha)" [ref=f49e23] [cursor=pointer]:
+            - /url: /stock/motos/
+            - generic [ref=f49e24]: ☰
+            - text: Estoque (Planilha)
+        - listitem [ref=f49e25]:
+          - link "$ Despesas" [ref=f49e26] [cursor=pointer]:
+            - /url: /stock/despesas/
+            - generic [ref=f49e27]: $
+            - text: Despesas
+      - generic [ref=f49e29]: Ações Rápidas
+      - list [ref=f49e30]:
+        - listitem [ref=f49e31]:
+          - link "+ Nova Moto" [ref=f49e32] [cursor=pointer]:
+            - /url: /new_moto/
+            - generic [ref=f49e33]: +
+            - text: Nova Moto
+        - listitem [ref=f49e34]:
+          - link "+ Nova Despesa" [ref=f49e35] [cursor=pointer]:
+            - /url: /stock/despesas/nova/
+            - generic [ref=f49e36]: +
+            - text: Nova Despesa
+      - list [ref=f49e38]:
+        - listitem [ref=f49e39]:
+          - link "← Voltar ao Site" [ref=f49e40] [cursor=pointer]:
+            - /url: /motos/
+            - generic [ref=f49e41]: ←
+            - text: Voltar ao Site
+    - main [ref=f49e42]:
+      - generic [ref=f49e43]:
+        - link "← Dashboard" [ref=f49e44] [cursor=pointer]:
+          - /url: /stock/
+        - link "Planilha" [ref=f49e45] [cursor=pointer]:
+          - /url: /stock/motos/
+        - link "Editar Custos" [ref=f49e46] [cursor=pointer]:
+          - /url: /stock/motos/3/custos/
+        - link "Registrar Venda" [ref=f49e47] [cursor=pointer]:
+          - /url: /stock/motos/3/vender/
+      - heading "Honda CB 1000R" [level=1] [ref=f49e48]
+      - paragraph [ref=f49e49]:
+        - text: "Ano 2024 | Placa: XYZ-9999 | Status:"
+        - generic [ref=f49e50]: Disponível
+        - text: ·
+        - link "Ocultar do site" [ref=f49e51] [cursor=pointer]:
+          - /url: /stock/motos/3/ocultar/
+        - text: ·
+        - link "Ocultar preço" [ref=f49e52] [cursor=pointer]:
+          - /url: /stock/motos/3/preco/
+      - generic [ref=f49e53]:
+        - generic [ref=f49e54]:
+          - generic [ref=f49e55]: Custo de aquisição
+          - generic [ref=f49e56]: R$ 0,00
+        - generic [ref=f49e57]:
+          - generic [ref=f49e58]: Despesas de documento
+          - generic [ref=f49e59]: R$ 0,00
+        - generic [ref=f49e60]:
+          - generic [ref=f49e61]: Transporte/frete
+          - generic [ref=f49e62]: R$ 0,00
+        - generic [ref=f49e63]:
+          - generic [ref=f49e64]: Manutenção/preparação
+          - generic [ref=f49e65]: R$ 0,00
+        - generic [ref=f49e66]:
+          - generic [ref=f49e67]: Multas
+          - generic [ref=f49e68]: R$ 0,00
+        - generic [ref=f49e69]:
+          - generic [ref=f49e70]: Outras despesas
+          - generic [ref=f49e71]: R$ 0,00
+      - generic [ref=f49e72]:
+        - generic [ref=f49e73]:
+          - generic [ref=f49e74]: Custo total (sem despesas extras)
+          - generic [ref=f49e75]: R$ 0,00
+        - generic [ref=f49e76]:
+          - generic [ref=f49e77]: Despesas extras vinculadas
+          - generic [ref=f49e78]: R$ 1
+      - heading "Despesas Extras Vinculadas" [level=2] [ref=f49e79]
+      - table [ref=f49e80]:
+        - rowgroup [ref=f49e81]:
+          - row [ref=f49e82]:
+            - columnheader "Descrição" [ref=f49e83]
+            - columnheader "Categoria" [ref=f49e84]
+            - columnheader "Valor" [ref=f49e85]
+            - columnheader "Data" [ref=f49e86]
+            - columnheader "Ações" [ref=f49e87]
+        - rowgroup [ref=f49e88]:
+          - row [ref=f49e89]:
+            - cell "Transferência" [ref=f49e90]
+            - cell "Outros" [ref=f49e91]
+            - cell "R$ 200,00" [ref=f49e92]
+            - cell "23/07/2026" [ref=f49e93]
+            - cell [ref=f49e94]:
+              - link "Editar" [ref=f49e95] [cursor=pointer]:
+                - /url: /stock/despesas/1/editar/

@@ -1,0 +1,90 @@
+- generic [ref=f51e2]:
+  - navigation [ref=f51e3]:
+    - link "JJT JJT Motorcycles" [ref=f51e5] [cursor=pointer]:
+      - /url: /motos/
+      - img "JJT" [ref=f51e6]
+      - generic [ref=f51e7]: JJT Motorcycles
+    - generic [ref=f51e8]:
+      - link "Motos" [ref=f51e9] [cursor=pointer]:
+        - /url: /motos/
+      - link "WhatsApp" [ref=f51e10] [cursor=pointer]:
+        - /url: https://wa.me/5519997797611
+      - link "Controle" [ref=f51e11] [cursor=pointer]:
+        - /url: /stock/
+    - generic [ref=f51e12]:
+      - button "Alternar tema" [ref=f51e13] [cursor=pointer]:
+        - generic [ref=f51e14]: ☾
+      - generic [ref=f51e15]: mborges
+      - link "+ Nova Moto" [ref=f51e16] [cursor=pointer]:
+        - /url: /new_moto/
+      - link "Novo user" [ref=f51e17] [cursor=pointer]:
+        - /url: /register/
+      - link "Sair" [ref=f51e18] [cursor=pointer]:
+        - /url: /logout/
+  - main [ref=f51e19]:
+    - generic [ref=f51e20]:
+      - heading "Nossas Motos" [level=1] [ref=f51e21]
+      - paragraph [ref=f51e22]: Encontre a moto ideal para você
+    - generic [ref=f51e24]:
+      - textbox "Buscar por marca, modelo ou ano..." [ref=f51e25]
+      - button "Buscar" [ref=f51e26] [cursor=pointer]
+    - generic [ref=f51e27]:
+      - link [ref=f51e28] [cursor=pointer]:
+        - /url: /motos/6/
+        - article [ref=f51e29]:
+          - img "Aerox" [ref=f51e30]
+          - generic [ref=f51e31]:
+            - generic [ref=f51e32]: 2025 · Yamaha
+            - heading "Yamaha Aerox" [level=2] [ref=f51e33]
+            - generic [ref=f51e34]: "Ano do modelo: 2026"
+            - generic [ref=f51e35]: R$ 22000,0
+      - link [ref=f51e36] [cursor=pointer]:
+        - /url: /motos/5/
+        - article [ref=f51e37]:
+          - img "CB 1000R" [ref=f51e38]
+          - generic [ref=f51e39]:
+            - generic [ref=f51e40]: 2024 · Honda
+            - heading "Honda CB 1000R" [level=2] [ref=f51e41]
+            - generic [ref=f51e42]: "Ano do modelo: 2025 Placa: XYZ-9999"
+            - generic [ref=f51e43]: Consulte-nos
+      - link [ref=f51e44] [cursor=pointer]:
+        - /url: /motos/7/
+        - article [ref=f51e45]:
+          - img "GSX 8R" [ref=f51e46]
+          - generic [ref=f51e47]:
+            - generic [ref=f51e48]: 2026 · Suzuki
+            - heading "Suzuki GSX 8R" [level=2] [ref=f51e49]
+            - generic [ref=f51e50]: "Ano do modelo: 2026"
+            - generic [ref=f51e51]: R$ 96000,0
+      - link [ref=f51e52] [cursor=pointer]:
+        - /url: /motos/8/
+        - article [ref=f51e53]:
+          - img "Ninja ZX-6R" [ref=f51e54]
+          - generic [ref=f51e55]:
+            - generic [ref=f51e56]: 2025 · Kawasaki
+            - heading "Kawasaki Ninja ZX-6R" [level=2] [ref=f51e57]
+            - generic [ref=f51e58]: Consulte-nos
+      - link [ref=f51e59] [cursor=pointer]:
+        - /url: /motos/9/
+        - article [ref=f51e60]:
+          - img "Panigali V4" [ref=f51e61]
+          - generic [ref=f51e62]:
+            - generic [ref=f51e63]: 2026 · Ducatti · VENDIDA
+            - heading "Ducatti Panigali V4" [level=2] [ref=f51e64]
+            - generic [ref=f51e65]: "Ano do modelo: 2026"
+            - generic [ref=f51e66]: R$ 169000,0
+  - contentinfo [ref=f51e67]:
+    - generic [ref=f51e68]:
+      - generic [ref=f51e69]:
+        - img "JJT" [ref=f51e70]
+        - generic [ref=f51e71]: JJT Motorcycles
+      - generic [ref=f51e72]:
+        - generic [ref=f51e73]: JJT Motos © 2025 — Todos os direitos reservados.
+        - generic [ref=f51e74]: "CNPJ: 00.000.000/0001-00 | Rua das Motos, 123, São Paulo - SP"
+      - generic [ref=f51e75]:
+        - link "GitHub" [ref=f51e76] [cursor=pointer]:
+          - /url: https://github.com/Marcel0Borg3s
+        - text: "|"
+        - link "LinkedIn" [ref=f51e77] [cursor=pointer]:
+          - /url: https://www.linkedin.com/in/mborgesx
+    - generic [ref=f51e78]: Desenvolvido por Marcelo Borges

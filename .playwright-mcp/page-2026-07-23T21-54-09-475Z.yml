@@ -1,0 +1,96 @@
+- generic [active] [ref=f48e1]:
+  - navigation [ref=f48e2]:
+    - link "JJT JJT Motorcycles" [ref=f48e4] [cursor=pointer]:
+      - /url: /motos/
+      - img "JJT" [ref=f48e5]
+      - generic [ref=f48e6]: JJT Motorcycles
+    - generic [ref=f48e7]:
+      - link "Motos" [ref=f48e8] [cursor=pointer]:
+        - /url: /motos/
+      - link "Controle" [ref=f48e9] [cursor=pointer]:
+        - /url: /stock/
+    - generic [ref=f48e10]:
+      - button "Alternar tema" [ref=f48e11] [cursor=pointer]:
+        - generic [ref=f48e12]: ☾
+      - generic [ref=f48e13]: mborges
+      - link "Sair" [ref=f48e14] [cursor=pointer]:
+        - /url: /logout/
+  - generic [ref=f48e15]:
+    - complementary [ref=f48e16]:
+      - generic [ref=f48e17]: Controle
+      - list [ref=f48e18]:
+        - listitem [ref=f48e19]:
+          - link "■ Dashboard" [ref=f48e20] [cursor=pointer]:
+            - /url: /stock/
+            - generic [ref=f48e21]: ■
+            - text: Dashboard
+        - listitem [ref=f48e22]:
+          - link "☰ Estoque (Planilha)" [ref=f48e23] [cursor=pointer]:
+            - /url: /stock/motos/
+            - generic [ref=f48e24]: ☰
+            - text: Estoque (Planilha)
+        - listitem [ref=f48e25]:
+          - link "$ Despesas" [ref=f48e26] [cursor=pointer]:
+            - /url: /stock/despesas/
+            - generic [ref=f48e27]: $
+            - text: Despesas
+      - generic [ref=f48e29]: Ações Rápidas
+      - list [ref=f48e30]:
+        - listitem [ref=f48e31]:
+          - link "+ Nova Moto" [ref=f48e32] [cursor=pointer]:
+            - /url: /new_moto/
+            - generic [ref=f48e33]: +
+            - text: Nova Moto
+        - listitem [ref=f48e34]:
+          - link "+ Nova Despesa" [ref=f48e35] [cursor=pointer]:
+            - /url: /stock/despesas/nova/
+            - generic [ref=f48e36]: +
+            - text: Nova Despesa
+      - list [ref=f48e38]:
+        - listitem [ref=f48e39]:
+          - link "← Voltar ao Site" [ref=f48e40] [cursor=pointer]:
+            - /url: /motos/
+            - generic [ref=f48e41]: ←
+            - text: Voltar ao Site
+    - main [ref=f48e42]:
+      - generic [ref=f48e43]:
+        - link "← Dashboard" [ref=f48e44] [cursor=pointer]:
+          - /url: /stock/
+        - link "Planilha" [ref=f48e45] [cursor=pointer]:
+          - /url: /stock/motos/
+        - link "Editar Custos" [ref=f48e46] [cursor=pointer]:
+          - /url: /stock/motos/4/custos/
+        - link "Registrar Venda" [ref=f48e47] [cursor=pointer]:
+          - /url: /stock/motos/4/vender/
+      - heading "Kawasaki Ninja ZX-6R" [level=1] [ref=f48e48]
+      - paragraph [ref=f48e49]:
+        - text: "Ano 2025 | Placa: --- | Status:"
+        - generic [ref=f48e50]: Disponível
+        - text: ·
+        - link "Ocultar do site" [ref=f48e51] [cursor=pointer]:
+          - /url: /stock/motos/4/ocultar/
+        - text: ·
+        - link "Ocultar preço" [ref=f48e52] [cursor=pointer]:
+          - /url: /stock/motos/4/preco/
+      - generic [ref=f48e53]:
+        - generic [ref=f48e54]:
+          - generic [ref=f48e55]: Custo de aquisição
+          - generic [ref=f48e56]: R$ 45000,00
+        - generic [ref=f48e57]:
+          - generic [ref=f48e58]: Despesas de documento
+          - generic [ref=f48e59]: R$ 2500,00
+        - generic [ref=f48e60]:
+          - generic [ref=f48e61]: Transporte/frete
+          - generic [ref=f48e62]: R$ 1200,00
+        - generic [ref=f48e63]:
+          - generic [ref=f48e64]: Manutenção/preparação
+          - generic [ref=f48e65]: R$ 800,00
+        - generic [ref=f48e66]:
+          - generic [ref=f48e67]: Multas
+          - generic [ref=f48e68]: R$ 0,00
+        - generic [ref=f48e69]:
+          - generic [ref=f48e70]: Outras despesas
+          - generic [ref=f48e71]: R$ 0,00
+      - generic [ref=f48e73]:
+        - generic [ref=f48e74]: Custo total (sem despesas extras)
+        - generic [ref=f48e75]: R$ 49500,00

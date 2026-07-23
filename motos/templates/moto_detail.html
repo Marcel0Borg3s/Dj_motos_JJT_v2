@@ -64,7 +64,7 @@
     <div class="detail-field">
       <div class="detail-field-label">Preço</div>
       <div class="detail-field-value price">
-        {% if object.value %}
+        {% if object.value and object.stock_show_price != False %}
           R$ {{ object.value }}
         {% else %}
           <span class="empty">Consulte-nos</span>

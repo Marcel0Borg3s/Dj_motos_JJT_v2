@@ -1,0 +1,50 @@
+- generic [ref=f12e2]:
+  - navigation [ref=f12e3]:
+    - link "JJT JJT Motorcycles" [ref=f12e5] [cursor=pointer]:
+      - /url: /motos/
+      - img "JJT" [ref=f12e6]
+      - generic [ref=f12e7]: JJT Motorcycles
+    - generic [ref=f12e8]:
+      - link "Motos" [ref=f12e9] [cursor=pointer]:
+        - /url: /motos/
+      - link "WhatsApp" [ref=f12e10] [cursor=pointer]:
+        - /url: https://wa.me/5519997797611
+    - generic [ref=f12e11]:
+      - generic [ref=f12e12]: mborges
+      - link "+ Nova Moto" [ref=f12e13] [cursor=pointer]:
+        - /url: /new_moto/
+      - link "Novo user" [ref=f12e14] [cursor=pointer]:
+        - /url: /register/
+      - link "Sair" [ref=f12e15] [cursor=pointer]:
+        - /url: /logout/
+  - main [ref=f12e16]:
+    - generic [ref=f12e17]:
+      - heading "Nossas Motos" [level=1] [ref=f12e18]
+      - paragraph [ref=f12e19]: Encontre a moto ideal para você
+    - generic [ref=f12e21]:
+      - textbox "Buscar por marca, modelo ou ano..." [ref=f12e22]
+      - button "Buscar" [ref=f12e23] [cursor=pointer]
+    - link [ref=f12e25] [cursor=pointer]:
+      - /url: /motos/3/
+      - article [ref=f12e26]:
+        - img "1" [ref=f12e27]
+        - generic [ref=f12e28]:
+          - generic [ref=f12e29]: 2025 · Yamaha
+          - heading "Yamaha 1" [level=2] [ref=f12e30]
+          - generic [ref=f12e31]: "Ano do modelo: 2025"
+          - generic [ref=f12e32]: R$ 35000,0
+  - contentinfo [ref=f12e33]:
+    - generic [ref=f12e34]:
+      - generic [ref=f12e35]:
+        - img "JJT" [ref=f12e36]
+        - generic [ref=f12e37]: JJT Motorcycles
+      - generic [ref=f12e38]:
+        - generic [ref=f12e39]: JJT Motos © 2025 — Todos os direitos reservados.
+        - generic [ref=f12e40]: "CNPJ: 00.000.000/0001-00 | Rua das Motos, 123, São Paulo - SP"
+      - generic [ref=f12e41]:
+        - link "GitHub" [ref=f12e42] [cursor=pointer]:
+          - /url: https://github.com/Marcel0Borg3s
+        - text: "|"
+        - link "LinkedIn" [ref=f12e43] [cursor=pointer]:
+          - /url: https://www.linkedin.com/in/mborgesx
+    - generic [ref=f12e44]: Desenvolvido por Marcelo Borges

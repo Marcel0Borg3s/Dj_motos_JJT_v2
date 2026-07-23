@@ -82,7 +82,12 @@ class MotoStock(models.Model):
         help_text='Campo para despesas não previstas nas categorias acima.',
     )
 
-    # ---- Dados de venda ----
+    # ---- Dados de venda e exibição ----
+    show_price = models.BooleanField(
+        default=True,
+        verbose_name='Exibir preço no site',
+        help_text='Se desmarcado, mostra "Consulte-nos" no lugar do valor.',
+    )
     sale_value = models.DecimalField(
         max_digits=12,
         decimal_places=2,

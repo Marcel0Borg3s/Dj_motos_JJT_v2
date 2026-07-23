@@ -1,0 +1,54 @@
+- generic [ref=f32e2]:
+  - navigation [ref=f32e3]:
+    - link "JJT JJT Motorcycles" [ref=f32e5] [cursor=pointer]:
+      - /url: /motos/
+      - img "JJT" [ref=f32e6]
+      - generic [ref=f32e7]: JJT Motorcycles
+    - generic [ref=f32e8]:
+      - link "Motos" [ref=f32e9] [cursor=pointer]:
+        - /url: /motos/
+      - link "WhatsApp" [ref=f32e10] [cursor=pointer]:
+        - /url: https://wa.me/5519997797611
+    - generic [ref=f32e11]:
+      - button "Alternar tema" [ref=f32e12] [cursor=pointer]:
+        - generic [ref=f32e13]: ☾
+      - generic [ref=f32e14]: mborges
+      - link "+ Nova Moto" [ref=f32e15] [cursor=pointer]:
+        - /url: /new_moto/
+      - link "Novo user" [ref=f32e16] [cursor=pointer]:
+        - /url: /register/
+      - link "Sair" [ref=f32e17] [cursor=pointer]:
+        - /url: /logout/
+  - main [ref=f32e18]:
+    - generic [ref=f32e20]:
+      - heading "Acessar" [level=1] [ref=f32e21]
+      - generic [ref=f32e22]:
+        - generic [ref=f32e23]:
+          - generic [ref=f32e24]:
+            - generic [ref=f32e25]: Usuário
+            - textbox "Usuário" [ref=f32e26]:
+              - /placeholder: Seu usuário
+          - generic [ref=f32e27]:
+            - generic [ref=f32e28]: Senha
+            - textbox "Senha" [ref=f32e29]:
+              - /placeholder: Sua senha
+        - button "Entrar" [ref=f32e31] [cursor=pointer]
+      - generic [ref=f32e32]:
+        - text: Não tem conta?
+        - link "Registre-se" [ref=f32e33] [cursor=pointer]:
+          - /url: /register/
+  - contentinfo [ref=f32e34]:
+    - generic [ref=f32e35]:
+      - generic [ref=f32e36]:
+        - img "JJT" [ref=f32e37]
+        - generic [ref=f32e38]: JJT Motorcycles
+      - generic [ref=f32e39]:
+        - generic [ref=f32e40]: JJT Motos © 2025 — Todos os direitos reservados.
+        - generic [ref=f32e41]: "CNPJ: 00.000.000/0001-00 | Rua das Motos, 123, São Paulo - SP"
+      - generic [ref=f32e42]:
+        - link "GitHub" [ref=f32e43] [cursor=pointer]:
+          - /url: https://github.com/Marcel0Borg3s
+        - text: "|"
+        - link "LinkedIn" [ref=f32e44] [cursor=pointer]:
+          - /url: https://www.linkedin.com/in/mborgesx
+    - generic [ref=f32e45]: Desenvolvido por Marcelo Borges

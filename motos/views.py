@@ -26,13 +26,17 @@ class MotosListView(ListView):
         - Motos vendidas (sale_status='sold') são incluídas mas o
           template pode exibir um badge "Vendida".
         """
-        # Subquery para pegar o status do estoque de cada moto
+        # Subquery para pegar status e show_price do estoque de cada moto
         stock_status = MotoStock.objects.filter(
             moto=OuterRef('pk')
         ).values('sale_status')[:1]
+        stock_show_price = MotoStock.objects.filter(
+            moto=OuterRef('pk')
+        ).values('show_price')[:1]
 
         motos = super().get_queryset().annotate(
-            stock_status=Subquery(stock_status)
+            stock_status=Subquery(stock_status),
+            stock_show_price=Subquery(stock_show_price),
         ).order_by('model')
 
         # Exclui motos ocultas (hidden)
@@ -60,8 +64,12 @@ class MotoDetailView(DetailView):
         stock_status = MotoStock.objects.filter(
             moto=OuterRef('pk')
         ).values('sale_status')[:1]
+        stock_show_price = MotoStock.objects.filter(
+            moto=OuterRef('pk')
+        ).values('show_price')[:1]
         return super().get_queryset().annotate(
-            stock_status=Coalesce(Subquery(stock_status), Value('available'))
+            stock_status=Coalesce(Subquery(stock_status), Value('available')),
+            stock_show_price=Coalesce(Subquery(stock_show_price), Value(True)),
         )
 
 @method_decorator(login_required(login_url='login'), name='dispatch')

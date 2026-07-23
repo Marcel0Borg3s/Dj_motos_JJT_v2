@@ -22,9 +22,14 @@
   </span>
   {% if stock.sale_status == 'available' %}
     · <a href="{% url 'stockcontrol:stock_toggle_hidden' pk=stock.pk %}" class="btn btn-ghost btn-sm" style="color:var(--warning-red);padding:2px 8px;font-size:11px;" onclick="return confirm('Ocultar esta moto do site público?')">Ocultar do site</a>
-  {% elif stock.sale_status == 'hidden' %}
+    {% elif stock.sale_status == 'hidden' %}
     · <a href="{% url 'stockcontrol:stock_toggle_visible' pk=stock.pk %}" class="btn btn-ghost btn-sm" style="color:var(--success-green);padding:2px 8px;font-size:11px;">Exibir no site</a>
-  {% endif %}
+    {% endif %}
+    {% if stock.show_price %}
+      · <a href="{% url 'stockcontrol:stock_toggle_price' pk=stock.pk %}" class="btn btn-ghost btn-sm" style="color:var(--text-muted);padding:2px 8px;font-size:11px;">Ocultar preço</a>
+    {% else %}
+      · <a href="{% url 'stockcontrol:stock_toggle_price' pk=stock.pk %}" class="btn btn-ghost btn-sm" style="color:var(--success-green);padding:2px 8px;font-size:11px;">Exibir preço</a>
+    {% endif %}
 </p>
 
 <!-- Grid de custos -->

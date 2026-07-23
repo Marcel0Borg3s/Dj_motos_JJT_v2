@@ -1,0 +1,50 @@
+- generic [active] [ref=f43e1]:
+  - banner [ref=f43e2]:
+    - heading "Page not found (404)" [level=1] [ref=f43e3]
+    - generic [ref=f43e4]: No Motos matches the given query.
+    - table [ref=f43e5]:
+      - rowgroup [ref=f43e6]:
+        - row [ref=f43e7]:
+          - rowheader "Request Method:" [ref=f43e8]
+          - cell "GET" [ref=f43e9]
+        - row [ref=f43e10]:
+          - rowheader "Request URL:" [ref=f43e11]
+          - cell "http://localhost:8765/stock/motos/4/custos/" [ref=f43e12]
+        - row [ref=f43e13]:
+          - rowheader "Raised by:" [ref=f43e14]
+          - cell "stockcontrol.views.StockCostUpdateView" [ref=f43e15]
+  - main [ref=f43e16]:
+    - paragraph [ref=f43e17]:
+      - text: Using the URLconf defined in
+      - code [ref=f43e18]: app.urls
+      - text: ", Django tried these URL patterns, in this order:"
+    - list [ref=f43e19]:
+      - listitem [ref=f43e20]:
+        - code [ref=f43e21]: admin/
+      - listitem [ref=f43e22]:
+        - code [ref=f43e23]: motos/ [name='motos_list']
+      - listitem [ref=f43e24]:
+        - code [ref=f43e25]: motos/gerar-descricao/ [name='generate_description']
+      - listitem [ref=f43e26]:
+        - code [ref=f43e27]: stock/
+        - code [ref=f43e28]: "[name='dashboard']"
+      - listitem [ref=f43e29]:
+        - code [ref=f43e30]: stock/
+        - code [ref=f43e31]: motos/ [name='stock_list']
+      - listitem [ref=f43e32]:
+        - code [ref=f43e33]: stock/
+        - code [ref=f43e34]: motos/<int:pk>/ [name='stock_detail']
+      - listitem [ref=f43e35]:
+        - code [ref=f43e36]: stock/
+        - code [ref=f43e37]: motos/<int:pk>/custos/ [name='stock_cost_edit']
+    - paragraph [ref=f43e38]:
+      - text: The current path,
+      - code [ref=f43e39]: stock/motos/4/custos/
+      - text: ", matched the last one."
+  - contentinfo [ref=f43e40]:
+    - paragraph [ref=f43e41]:
+      - text: You’re seeing this error because you have
+      - code [ref=f43e42]: DEBUG = True
+      - text: in your Django settings file. Change that to
+      - code [ref=f43e43]: "False"
+      - text: ", and Django will display a standard 404 page."

@@ -57,4 +57,9 @@ urlpatterns = [
     path('motos/<int:pk>/exibir/',
          views.StockToggleVisibleView.as_view(),
          name='stock_toggle_visible'),
+
+    # Toggle preço
+    path('motos/<int:pk>/preco/',
+         views.StockTogglePriceView.as_view(),
+         name='stock_toggle_price'),
 ]

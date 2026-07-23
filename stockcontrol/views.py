@@ -343,3 +343,18 @@ class StockToggleVisibleView(View):
         stock.save()
         messages.success(request, 'Moto agora está visível no site.')
         return redirect('stockcontrol:stock_detail', pk=pk)
+
+
+@method_decorator(financeiro_required, name='dispatch')
+class StockTogglePriceView(View):
+    """
+    Alterna a flag show_price entre True e False.
+    Quando False, o preço não aparece no site público (mostra "Consulte-nos").
+    """
+    def get(self, request, pk):
+        stock = get_object_or_404(MotoStock, pk=pk)
+        stock.show_price = not stock.show_price
+        stock.save()
+        status = 'agora visível' if stock.show_price else 'ocultado'
+        messages.success(request, f'Preço {status} no site público.')
+        return redirect('stockcontrol:stock_detail', pk=pk)
