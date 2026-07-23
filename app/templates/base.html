@@ -1,10 +1,19 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" data-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{% block title %}JJT Motorcycles{% endblock %}</title>
+  <script>
+    // Anti-flash: aplica o tema salvo antes do CSS carregar
+    (function() {
+      var theme = localStorage.getItem('theme');
+      if (theme === 'light' || theme === 'dark') {
+        document.documentElement.setAttribute('data-theme', theme);
+      }
+    })();
+  </script>
   <link rel="stylesheet" href="{% static 'css/ferrari.css' %}">
   {% block extra_css %}{% endblock %}
 </head>
@@ -28,6 +37,13 @@
       </div>
 
       <div class="navbar-right">
+        <!-- Theme toggle -->
+        <button type="button" class="btn btn-ghost btn-sm theme-toggle" id="themeToggle"
+                onclick="toggleTheme()" aria-label="Alternar tema"
+                style="padding:6px 10px;font-size:16px;line-height:1;min-width:auto;">
+          <span id="themeIcon">&#9790;</span>
+        </button>
+
         {% if user.is_authenticated %}
           <span class="navbar-greeting">{{ user.username }}</span>
           <a href="{% url 'new_moto' %}" class="btn btn-red btn-sm">+ Nova Moto</a>
@@ -70,6 +86,30 @@
   </div>
 
 {% block extra_js %}{% endblock %}
+
+<script>
+function toggleTheme() {
+  var html = document.documentElement;
+  var current = html.getAttribute('data-theme');
+  var next = (current === 'dark') ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+  localStorage.setItem('theme', next);
+  updateThemeIcon(next);
+}
+
+function updateThemeIcon(theme) {
+  var icon = document.getElementById('themeIcon');
+  if (icon) {
+    icon.textContent = (theme === 'dark') ? '\u263E' : '\u2600';
+  }
+}
+
+// Sincroniza o icone ao carregar
+(function() {
+  var theme = document.documentElement.getAttribute('data-theme') || 'dark';
+  updateThemeIcon(theme);
+})();
+</script>
 
 </body>
 </html>

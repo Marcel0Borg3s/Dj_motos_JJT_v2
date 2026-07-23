@@ -33,7 +33,7 @@
   --teal-hover:        #1EAEDB;
   --racing-yellow:     #FFF200;
 
-  /* Dark theme */
+  /* Dark theme (default) */
   --page-bg:           var(--near-black);
   --card-bg:           var(--dark-surface);
   --nav-bg:            var(--absolute-black);
@@ -42,6 +42,15 @@
   --text-muted:        var(--mid-gray);
   --text-tertiary:     var(--silver-gray);
   --divider:           var(--border-dark);
+  --hero-bg:           var(--absolute-black);
+  --hero-text:         var(--pure-white);
+  --price-text:        var(--pure-white);
+  --footer-bg:         var(--absolute-black);
+  --card-img-placeholder: var(--dark-surface-lt);
+  --input-border:      var(--border-dark);
+  --btn-ghost-border:  var(--border-dark);
+  --nav-hover:         var(--pure-white);
+  --carousel-nav-bg:   rgba(0,0,0,0.6);
 
   /* Typography */
   --font-heading:      'DM Sans', Arial, Helvetica, sans-serif;
@@ -62,6 +71,31 @@
   /* Transitions */
   --transition-fast: 0.2s ease;
   --transition:      0.3s ease;
+}
+
+/* ----- Light Theme Overrides ----- */
+[data-theme="light"] {
+  --page-bg:           var(--pure-white);
+  --card-bg:           var(--pure-white);
+  --nav-bg:            var(--pure-white);
+  --text-primary:      var(--near-black);
+  --text-secondary:    var(--dark-gray);
+  --text-muted:        var(--mid-gray);
+  --text-tertiary:     var(--silver-gray);
+  --divider:           var(--light-gray);
+  --hero-bg:           var(--light-gray);
+  --hero-text:         var(--near-black);
+  --price-text:        var(--ferrari-red);
+  --footer-bg:         #F5F5F5;
+  --card-img-placeholder: var(--light-gray);
+  --input-border:      #CCCCCC;
+  --btn-ghost-border:  #CCCCCC;
+  --nav-hover:         var(--ferrari-red);
+  --carousel-nav-bg:   rgba(0,0,0,0.3);
+}
+
+[data-theme="light"] .background-overlay {
+  opacity: 0.02;
 }
 
 
@@ -178,13 +212,13 @@ img {
   font-size: 15px;
   font-weight: 600;
   letter-spacing: 0.13px;
-  color: var(--pure-white);
+  color: var(--text-primary);
 }
 
 .navbar-divider {
   width: 1px;
   height: 24px;
-  background: var(--border-dark);
+  background: var(--divider);
 }
 
 .navbar-center {
@@ -208,7 +242,7 @@ img {
 }
 
 .navbar-link:hover {
-  color: var(--pure-white);
+  color: var(--nav-hover);
 }
 
 .navbar-link-whatsapp {
@@ -278,12 +312,12 @@ img {
 .btn-ghost {
   background: transparent;
   color: var(--text-secondary);
-  border: 1px solid var(--border-dark);
+  border: 1px solid var(--btn-ghost-border);
 }
 
 .btn-ghost:hover {
   border-color: var(--text-secondary);
-  color: var(--pure-white);
+  color: var(--nav-hover);
 }
 
 .btn-danger {
@@ -309,7 +343,7 @@ img {
 .page-hero {
   padding: var(--space-2xl) var(--space-xl) var(--space-xl);
   text-align: center;
-  background: var(--absolute-black);
+  background: var(--hero-bg);
   border-bottom: 1px solid var(--divider);
   position: relative;
   overflow: hidden;
@@ -331,7 +365,7 @@ img {
   font-family: var(--font-heading);
   font-size: 28px;
   font-weight: 500;
-  color: var(--pure-white);
+  color: var(--hero-text);
   margin-bottom: var(--space-sm);
   position: relative;
 }
@@ -372,7 +406,7 @@ img {
   font-size: 13px;
   color: var(--text-primary);
   background: var(--card-bg);
-  border: 1px solid var(--border-dark);
+  border: 1px solid var(--input-border);
   border-radius: var(--radius);
   padding: 10px 14px;
   outline: none;
@@ -441,7 +475,7 @@ img {
   height: 200px;
   object-fit: cover;
   display: block;
-  background: var(--dark-surface-lt);
+  background: var(--card-img-placeholder);
 }
 
 .moto-card-body {
@@ -488,7 +522,7 @@ img {
   font-family: var(--font-heading);
   font-size: 18px;
   font-weight: 600;
-  color: var(--pure-white);
+  color: var(--price-text);
   letter-spacing: 0.2px;
 }
 
@@ -549,7 +583,7 @@ img {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: rgba(0,0,0,0.6);
+  background: var(--carousel-nav-bg);
   border: none;
   color: var(--pure-white);
   font-size: 1.5rem;
@@ -574,7 +608,7 @@ img {
 
 .carousel-dots button {
   border: none;
-  background: var(--border-dark);
+  background: var(--text-tertiary);
   width: 10px;
   height: 10px;
   border-radius: 50%;
@@ -736,7 +770,7 @@ img {
   font-size: 13px;
   color: var(--text-primary);
   background: transparent;
-  border: 1px solid var(--border-dark);
+  border: 1px solid var(--input-border);
   border-radius: var(--radius);
   padding: 10px 12px;
   outline: none;
@@ -969,7 +1003,7 @@ img {
    ============================================================ */
 
 .footer {
-  background: var(--absolute-black);
+  background: var(--footer-bg);
   border-top: 1px solid var(--divider);
   padding: var(--space-xl) var(--space-xl) var(--space-lg);
   margin-top: auto;
@@ -1026,11 +1060,11 @@ img {
 }
 
 .footer-links a:hover {
-  color: var(--pure-white);
+  color: var(--text-primary);
 }
 
 .footer-links .link-sep {
-  color: var(--border-dark);
+  color: var(--text-muted);
   margin: 0 6px;
   font-size: 10px;
 }
