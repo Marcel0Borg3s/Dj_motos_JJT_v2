@@ -1,3 +1,20 @@
-venv
-db.sqlite3
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
 
+# Media files (uploaded by users)
+media/
+
+# Playwright test artifacts
+.playwright-mcp/
+
+# Virtual environment
+venv/
+.venv/
+
+# Database
+*.sqlite3
+
+# Environment variables
+.env
