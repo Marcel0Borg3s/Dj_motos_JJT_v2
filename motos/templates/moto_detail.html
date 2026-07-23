@@ -29,7 +29,11 @@
   <div class="detail-header">
     <h1 class="detail-title">{{ object.brand }} {{ object.model }}</h1>
     {% if object.factor_year %}
-      <p class="detail-subtitle">{{ object.factor_year }}{% if object.model_year %} · Modelo {{ object.model_year }}{% endif %}</p>
+      <p class="detail-subtitle">{{ object.factor_year }}{% if object.model_year %} · Modelo {{ object.model_year }}{% endif %}
+        {% if object.stock_status == 'sold' %}
+          · <span style="color:var(--warning-red);font-weight:700;">VENDIDA</span>
+        {% endif %}
+      </p>
     {% endif %}
   </div>
 

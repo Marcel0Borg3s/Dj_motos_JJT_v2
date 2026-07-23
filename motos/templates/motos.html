@@ -39,6 +39,9 @@
             <div class="moto-card-caption">
               {% if moto.factor_year %}{{ moto.factor_year }}{% else %}Moto{% endif %}
               {% if moto.brand %} · {{ moto.brand }}{% endif %}
+              {% if moto.stock_status == 'sold' %}
+                <span style="color:var(--warning-red);font-weight:700;"> · VENDIDA</span>
+              {% endif %}
             </div>
 
             <h2 class="moto-card-title">{{ moto.brand }} {{ moto.model }}</h2>

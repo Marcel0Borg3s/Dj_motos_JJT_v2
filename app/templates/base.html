@@ -34,6 +34,13 @@
       <div class="navbar-center">
         <a href="{% url 'motos_list' %}" class="navbar-link">Motos</a>
         <a href="https://wa.me/5519997797611" target="_blank" class="navbar-link navbar-link-whatsapp">WhatsApp</a>
+        {% if user.is_authenticated and user.groups.all %}
+          {% for group in user.groups.all %}
+            {% if group.name == 'financeiro' %}
+              <a href="{% url 'stockcontrol:dashboard' %}" class="navbar-link" style="color:var(--ferrari-red);font-weight:700;">Controle</a>
+            {% endif %}
+          {% endfor %}
+        {% endif %}
       </div>
 
       <div class="navbar-right">

@@ -13,7 +13,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic import (
     TemplateView, ListView, DetailView,
-    UpdateView, CreateView, DeleteView,
+    UpdateView, CreateView, DeleteView, View,
 )
 from django.utils.decorators import method_decorator
 from django.db.models import Sum, Count, Q
@@ -319,3 +319,33 @@ class ExpenseDeleteView(DeleteView):
     def form_valid(self, form):
         messages.success(self.request, 'Despesa excluída com sucesso!')
         return super().form_valid(form)
+
+
+# =============================================================================
+# 7. STATUS TOGGLE — Ocultar / Exibir / Reexibir
+# =============================================================================
+
+@method_decorator(financeiro_required, name='dispatch')
+class StockToggleHiddenView(View):
+    """
+    Alterna o status da moto para 'hidden' (oculta do site público).
+    """
+    def get(self, request, pk):
+        stock = get_object_or_404(MotoStock, pk=pk)
+        stock.sale_status = MotoStock.SaleStatus.HIDDEN
+        stock.save()
+        messages.success(request, 'Moto ocultada do site público.')
+        return redirect('stockcontrol:stock_detail', pk=pk)
+
+
+@method_decorator(financeiro_required, name='dispatch')
+class StockToggleVisibleView(View):
+    """
+    Alterna o status da moto de volta para 'available' (visível no site).
+    """
+    def get(self, request, pk):
+        stock = get_object_or_404(MotoStock, pk=pk)
+        stock.sale_status = MotoStock.SaleStatus.AVAILABLE
+        stock.save()
+        messages.success(request, 'Moto agora está visível no site.')
+        return redirect('stockcontrol:stock_detail', pk=pk)

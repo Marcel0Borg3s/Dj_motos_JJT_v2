@@ -20,6 +20,11 @@
   | Status: <span class="badge badge-{{ stock.sale_status }}">
     {% if stock.sale_status == 'available' %}Disponível{% elif stock.sale_status == 'sold' %}Vendida{% else %}Oculta{% endif %}
   </span>
+  {% if stock.sale_status == 'available' %}
+    · <a href="{% url 'stockcontrol:stock_toggle_hidden' pk=stock.pk %}" class="btn btn-ghost btn-sm" style="color:var(--warning-red);padding:2px 8px;font-size:11px;" onclick="return confirm('Ocultar esta moto do site público?')">Ocultar do site</a>
+  {% elif stock.sale_status == 'hidden' %}
+    · <a href="{% url 'stockcontrol:stock_toggle_visible' pk=stock.pk %}" class="btn btn-ghost btn-sm" style="color:var(--success-green);padding:2px 8px;font-size:11px;">Exibir no site</a>
+  {% endif %}
 </p>
 
 <!-- Grid de custos -->

@@ -49,4 +49,12 @@ urlpatterns = [
     path('despesas/<int:pk>/excluir/',
          views.ExpenseDeleteView.as_view(),
          name='expense_delete'),
+
+    # Toggle visibilidade
+    path('motos/<int:pk>/ocultar/',
+         views.StockToggleHiddenView.as_view(),
+         name='stock_toggle_hidden'),
+    path('motos/<int:pk>/exibir/',
+         views.StockToggleVisibleView.as_view(),
+         name='stock_toggle_visible'),
 ]

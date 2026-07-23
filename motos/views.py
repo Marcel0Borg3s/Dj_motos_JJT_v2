@@ -6,7 +6,12 @@ from django.utils.decorators import method_decorator
 from django.views.generic import CreateView, DeleteView, DetailView, ListView, UpdateView
 from django.http import JsonResponse, HttpResponse
 from django.conf import settings
+from django.db.models import OuterRef, Subquery, Value
+from django.db.models.functions import Coalesce
 import json, urllib.request, urllib.error
+
+from stockcontrol.models import MotoStock
+
 
 class MotosListView(ListView):
     model = Motos
@@ -14,7 +19,25 @@ class MotosListView(ListView):
     context_object_name = 'motos'
 
     def get_queryset(self):
-        motos = super().get_queryset().order_by('model')
+        """
+        Retorna as motos visíveis no site público.
+
+        - Motos com stock oculto (sale_status='hidden') são excluídas.
+        - Motos vendidas (sale_status='sold') são incluídas mas o
+          template pode exibir um badge "Vendida".
+        """
+        # Subquery para pegar o status do estoque de cada moto
+        stock_status = MotoStock.objects.filter(
+            moto=OuterRef('pk')
+        ).values('sale_status')[:1]
+
+        motos = super().get_queryset().annotate(
+            stock_status=Subquery(stock_status)
+        ).order_by('model')
+
+        # Exclui motos ocultas (hidden)
+        motos = motos.exclude(stock_status='hidden')
+
         search = self.request.GET.get('search')
         if search:
             motos = motos.filter(model__icontains=search)
@@ -31,6 +54,15 @@ class NewMotoCreateView(CreateView):
 class MotoDetailView(DetailView):
     model = Motos
     template_name = 'moto_detail.html'
+
+    def get_queryset(self):
+        """Anota o status do estoque para exibir badge de venda."""
+        stock_status = MotoStock.objects.filter(
+            moto=OuterRef('pk')
+        ).values('sale_status')[:1]
+        return super().get_queryset().annotate(
+            stock_status=Coalesce(Subquery(stock_status), Value('available'))
+        )
 
 @method_decorator(login_required(login_url='login'), name='dispatch')
 class MotoUpdateView(UpdateView):
