@@ -1,24 +1,191 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block title %}JJT — Cadastrar Nova Moto{% endblock %}
+
+{% block extra_css %}
+<style>
+.btn-ai {
+  background: transparent;
+  color: var(--info-blue);
+  border: 1px solid var(--info-blue);
+  border-radius: var(--radius);
+  padding: 6px 14px;
+  font-family: var(--font-heading);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.btn-ai:hover {
+  background: var(--info-blue);
+  color: var(--pure-white);
+}
+.btn-ai:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.btn-ai .spinner {
+  display: none;
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--info-blue);
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+.btn-ai.loading .spinner {
+  display: inline-block;
+}
+.btn-ai.loading .label-text {
+  display: none;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+.ai-badge {
+  font-size: 10px;
+  color: var(--text-muted);
+  font-family: var(--font-body);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-left: 8px;
+}
+</style>
+{% endblock %}
 
 {% block content %}
-<div class="container-custom">
-  <div class="form-custom fade-in-custom">
-    <h2 class="text-center-custom mb-custom-3">Cadastrar Nova Moto</h2>
-    
-    <form method="post" enctype="multipart/form-data">
+
+<div class="form-page fade-in">
+  <div class="form-card">
+    <h1 class="form-title">Cadastrar Nova Moto</h1>
+
+    <form method="post" enctype="multipart/form-data" id="motoForm">
       {% csrf_token %}
-      
-      <div class="table-custom">
-        <table style="width: 100%; border: none; background: transparent;">
-          {{ form.as_table }}
-        </table>
+
+      {% if form.non_field_errors %}
+        <ul class="form-errors">
+          {% for error in form.non_field_errors %}
+            <li>{{ error }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+
+      <div class="form-grid">
+
+        {% for field in form %}
+          <div class="form-group{% if field.name in 'bio,photo,photo2,photo3,photo4,photo5,photo6' %} full{% endif %}">
+            <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+
+            {% if field.field.widget.input_type == 'file' %}
+              {{ field }}
+            {% elif field.field.widget.input_type == 'select' %}
+              <select name="{{ field.name }}" id="{{ field.id_for_label }}" class="form-select">
+                {% for option in field %}
+                  {{ option }}
+                {% endfor %}
+              </select>
+            {% elif field.field.widget.input_type == 'textarea' or field.name == 'bio' %}
+              <div style="display:flex;flex-direction:column;gap:6px;">
+                <textarea name="{{ field.name }}" id="{{ field.id_for_label }}"
+                          class="form-textarea{% if field.errors %} form-input-error{% endif %}"
+                          placeholder="{{ field.label }}">{{ field.value|default:'' }}</textarea>
+                {% if field.name == 'bio' %}
+                  <div style="display:flex;align-items:center;gap:8px;margin-top:2px;">
+                    <button type="button" class="btn-ai" id="btnGerarDescricao" onclick="gerarDescricao()">
+                      <span class="spinner"></span>
+                      <span class="label-text">&#9889; Gerar descrição técnica com IA</span>
+                    </button>
+                    <span class="ai-badge">OpenRouter</span>
+                  </div>
+                {% endif %}
+              </div>
+            {% elif field.field.widget.input_type == 'number' or field.name == 'factor_year' or field.name == 'model_year' or field.name == 'value' %}
+              <input type="number" name="{{ field.name }}" id="{{ field.id_for_label }}"
+                     class="form-input{% if field.errors %} form-input-error{% endif %}"
+                     value="{{ field.value|default:'' }}"
+                     placeholder="{{ field.label }}">
+            {% else %}
+              <input type="text" name="{{ field.name }}" id="{{ field.id_for_label }}"
+                     class="form-input{% if field.errors %} form-input-error{% endif %}"
+                     value="{{ field.value|default:'' }}"
+                     placeholder="{{ field.label }}">
+            {% endif %}
+
+            {% if field.errors %}
+              {% for error in field.errors %}
+                <span class="form-error-text">{{ error }}</span>
+              {% endfor %}
+            {% endif %}
+
+            {% if field.help_text %}
+              <small style="color:var(--text-tertiary);font-size:11px;margin-top:2px;">{{ field.help_text }}</small>
+            {% endif %}
+          </div>
+        {% endfor %}
+
       </div>
-      
-      <div class="text-center-custom mt-custom-3">
-        <button type="submit" class="btn-custom btn-success-custom">Cadastrar Moto</button>
-        <a href="{% url 'motos_list' %}" class="btn-custom btn-secondary-custom">Cancelar</a>
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-green">Cadastrar Moto</button>
+        <a href="{% url 'motos_list' %}" class="btn btn-ghost">Cancelar</a>
       </div>
     </form>
   </div>
 </div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function gerarDescricao() {
+  const btn = document.getElementById('btnGerarDescricao');
+  const bioField = document.getElementById('id_bio');
+
+  // Coleta os dados do formulário
+  const data = {
+    brand: document.getElementById('id_brand')?.value || '',
+    model: document.getElementById('id_model')?.value || '',
+    factor_year: document.getElementById('id_factor_year')?.value || '',
+    model_year: document.getElementById('id_model_year')?.value || '',
+  };
+
+  // Pelo menos marca ou modelo são necessários
+  if (!data.brand && !data.model) {
+    bioField.value = 'Preencha ao menos a marca e o modelo antes de gerar a descrição.';
+    bioField.focus();
+    return;
+  }
+
+  btn.classList.add('loading');
+  btn.disabled = true;
+
+  fetch('{% url "generate_description" %}', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+    },
+    body: JSON.stringify(data),
+  })
+  .then(res => res.json())
+  .then(result => {
+    if (result.description) {
+      bioField.value = result.description;
+    } else {
+      bioField.value = 'Erro ao gerar descrição: ' + (result.error || 'resposta vazia');
+    }
+  })
+  .catch(err => {
+    bioField.value = 'Erro de conexão: ' + err.message;
+  })
+  .finally(() => {
+    btn.classList.remove('loading');
+    btn.disabled = false;
+  });
+}
+</script>
 {% endblock %}

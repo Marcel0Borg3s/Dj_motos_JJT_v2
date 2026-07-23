@@ -1,64 +1,30 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block title %}JJT — Deletar Moto{% endblock %}
 
 {% block content %}
-  <style>
-    .buttons-container {
-      display: flex;
-      justify-content: center;
-      margin-top: 20px;
-      margin-bottom: 20px;
-    }
 
-    .btn {
-      display: inline-block;
-      background-color: #0096c7;
-      color: #fff;
-      border: none;
-      padding: 10px 20px;
-      font-size: 16px;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: background-color 0.3s ease-in-out;
-      margin: 0 10px;
-    }
+<div class="delete-container fade-in">
+  <div class="delete-card">
+    <div class="delete-icon">&#9888;</div>
+    <h1 class="delete-title">Deletar Moto</h1>
+    <p class="delete-text">
+      Tem certeza que deseja deletar a moto<br>
+      <strong>{{ object.brand }} {{ object.model }}</strong>?
+    </p>
+    <p style="font-size:12px;color:var(--warning-red);margin-bottom:var(--space-lg);">
+      Esta ação não pode ser desfeita.
+    </p>
 
-    .btn:hover {
-      background-color: #108eb8;
-    }
-
-    .btn-danger {
-      background-color: #d9534f;
-      text-decoration: none !important;
-    }
-
-    .btn-danger:hover {
-      background-color: #d2221c;
-    }
-
-    .error-message {
-      color: #d9534f;
-      font-size: 14px;
-      margin-top: 5px;
-    }
-
-    a {
-      text-decoration: none !important;
-    }
-  </style>
-  <div class="card">
-    <div class="card-header">
-      <h1 class="card-title">Deletar Moto</h1>
-    </div>
-    <div class="card-body">
-      <p>Tem certeza que deseja deletar a moto: <strong>{{ object.brand }} {{ object.model }}</strong>?</p>
-      <form method="post">
-        {% csrf_token %}
-        <div class="buttons-container">
-          <button type="submit" class="btn btn-danger">Deletar Moto</button>
-          <a href="{% url 'moto_update' pk=object.pk %}" class="btn btn-secondary">Cancelar</a>
-        </div>
-      </form>
-    </div>
+    <form method="post">
+      {% csrf_token %}
+      <div class="delete-actions">
+        <button type="submit" class="btn btn-danger">Sim, Deletar</button>
+        <a href="{% url 'moto_update' pk=object.pk %}" class="btn btn-ghost">Cancelar</a>
+      </div>
+    </form>
   </div>
-{% endblock %}
+</div>
 
+{% endblock %}

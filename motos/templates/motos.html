@@ -1,55 +1,77 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block content %}
-<div class="container-custom">
-  <!-- Formulário de busca -->
-  <div class="search-container-custom">
-    <form method="GET" action="{% url 'motos_list' %}">
-      <input type="text" 
-             name="search" 
-             class="search-input-custom" 
-             placeholder="Buscar moto por marca, modelo ou ano..."
-             value="{{ request.GET.search }}">
-      <button type="submit" class="btn-custom btn-primary-custom">Buscar</button>
-    </form>
-  </div>
+{% block title %}JJT Motorcycles — Nossas Motos{% endblock %}
 
-  <!-- Grid de motos -->
-  <div class="grid-custom grid-3">
-    {% if motos %}
-      {% for moto in motos %}
-        <a href="{% url 'moto_detail' moto.pk %}" style="text-decoration: none;">
-          <div class="card-custom fade-in-custom">
-            {% if moto.photo and moto.photo.url %}
-              <img src="{{ moto.photo.url }}" alt="{{ moto.model }} - {{ moto.brand }}" class="card-img-custom">
-            {% else %}
-              <img src="{% static 'images/Preparacao.png' %}" alt="Sem foto disponível" class="card-img-custom">
-            {% endif %}
-              
-            <div class="card-body-custom">
-              <h3 class="card-title-custom">{{ moto.brand }} {{ moto.model }}</h3>
-              <p class="card-text-custom">
-                <span class="text-highlight-custom">Ano:</span> {{ moto.factor_year }}<br>
-                <span class="text-highlight-custom">Modelo:</span> {{ moto.model_year }}<br>
-                <span class="text-highlight-custom">Preço:</span>
-                {% if moto.value %}
-                  R$ {{ moto.value }}
-                {% else %}
-                  Consulte
-                {% endif %}
-              </p>
+{% block content %}
+
+<!-- ===== PAGE HERO ===== -->
+<section class="page-hero fade-in">
+  <h1>Nossas Motos</h1>
+  <p class="hero-subtitle">Encontre a moto ideal para você</p>
+</section>
+
+<!-- ===== SEARCH ===== -->
+<section class="search-section">
+  <form method="GET" action="{% url 'motos_list' %}" class="search-form">
+    <input type="text"
+           name="search"
+           class="search-input"
+           placeholder="Buscar por marca, modelo ou ano..."
+           value="{{ request.GET.search }}">
+    <button type="submit" class="btn btn-red">Buscar</button>
+  </form>
+</section>
+
+<!-- ===== MOTOS GRID ===== -->
+{% if motos %}
+  <section class="motos-grid">
+    {% for moto in motos %}
+      <a href="{% url 'moto_detail' moto.pk %}" class="moto-card-link">
+        <article class="moto-card fade-in">
+          {% if moto.photo and moto.photo.url %}
+            <img src="{{ moto.photo.url }}" alt="{{ moto.model }}" class="moto-card-image" loading="lazy">
+          {% else %}
+            <img src="{% static 'images/Preparacao.png' %}" alt="Sem foto" class="moto-card-image">
+          {% endif %}
+
+          <div class="moto-card-body">
+            <div class="moto-card-caption">
+              {% if moto.factor_year %}{{ moto.factor_year }}{% else %}Moto{% endif %}
+              {% if moto.brand %} · {{ moto.brand }}{% endif %}
+            </div>
+
+            <h2 class="moto-card-title">{{ moto.brand }} {{ moto.model }}</h2>
+
+            <div class="moto-card-specs">
+              {% if moto.model_year %}
+                <span>Ano do modelo:</span> {{ moto.model_year }}<br>
+              {% endif %}
+              {% if moto.plate %}
+                <span>Placa:</span> {{ moto.plate }}<br>
+              {% endif %}
+            </div>
+
+            <div class="moto-card-price">
+              {% if moto.value %}
+                R$ {{ moto.value }}
+              {% else %}
+                <span class="consulte">Consulte-nos</span>
+              {% endif %}
             </div>
           </div>
-        </a>
-      {% endfor %}
-    {% else %}
-      <div class="text-center-custom" style="grid-column: 1 / -1;">
-        <h3 class="text-muted-custom">Nenhuma moto encontrada</h3>
-        <p class="text-muted-custom">Tente ajustar os filtros de busca ou adicione uma nova moto.</p>
-      </div>
-    {% endif %}
-  </div>
-</div>
-{% endblock %}
+        </article>
+      </a>
+    {% endfor %}
+  </section>
+{% else %}
+  <section class="motos-grid">
+    <div class="empty-state">
+      <h3>Nenhuma moto encontrada</h3>
+      <p>Tente ajustar sua busca ou adicione uma nova moto.</p>
+      <a href="{% url 'new_moto' %}" class="btn btn-red">Cadastrar Moto</a>
+    </div>
+  </section>
+{% endif %}
 
+{% endblock %}

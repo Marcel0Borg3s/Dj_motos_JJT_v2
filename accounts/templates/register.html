@@ -1,53 +1,69 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block title %}JJT — Registrar{% endblock %}
 
 {% block content %}
-<div class="container-custom">
-    <div class="form-custom fade-in-custom">
-        <h2 class="text-center-custom mb-custom-3">Cadastro de Usuário</h2>
-        
-        <form method="post">
-            {% csrf_token %}
-            
-            <div class="form-group-custom">
-                {{ user_form.username.errors }}
-                <label class="form-label-custom" for="{{ user_form.username.id_for_label }}">Usuário:</label>
-                <input type="text" 
-                       class="form-control-custom" 
-                       id="{{ user_form.username.id_for_label }}" 
-                       name="{{ user_form.username.name }}" 
-                       value="{{ user_form.username.value|default:'' }}"
-                       placeholder="Digite o nome de usuário"
-                       required>
-            </div>
-            
-            <div class="form-group-custom">
-                {{ user_form.password1.errors }}
-                <label class="form-label-custom" for="{{ user_form.password1.id_for_label }}">Senha:</label>
-                <input type="password" 
-                       class="form-control-custom" 
-                       id="{{ user_form.password1.id_for_label }}" 
-                       name="{{ user_form.password1.name }}"
-                       placeholder="Digite a senha"
-                       required>
-            </div>
 
-            <div class="form-group-custom">
-                {{ user_form.password2.errors }}
-                <label class="form-label-custom" for="{{ user_form.password2.id_for_label }}">Confirmar senha:</label>
-                <input type="password" 
-                       class="form-control-custom" 
-                       id="{{ user_form.password2.id_for_label }}" 
-                       name="{{ user_form.password2.name }}"
-                       placeholder="Confirme a senha"
-                       required>
-            </div>
+<div class="auth-container fade-in">
+  <div class="auth-card">
+    <h1 class="auth-title">Criar Conta</h1>
 
-            <div class="text-center-custom mt-custom-3">
-                <button type="submit" class="btn-custom btn-success-custom">Cadastrar</button>
-                <a href="{% url 'login' %}" class="btn-custom btn-secondary-custom">Voltar ao Login</a>
-            </div>
-        </form>
+    {% if user_form.errors %}
+      <div class="auth-error">
+        Verifique os campos abaixo.
+      </div>
+    {% endif %}
+
+    <form method="post">
+      {% csrf_token %}
+
+      <div class="form-grid" style="grid-template-columns:1fr;">
+
+        <div class="form-group">
+          <label for="id_username" class="form-label">Usuário</label>
+          <input type="text" name="username" id="id_username"
+                 class="form-input{% if user_form.username.errors %} form-input-error{% endif %}"
+                 placeholder="Nome de usuário" required>
+          {% for error in user_form.username.errors %}
+            <span class="form-error-text">{{ error }}</span>
+          {% endfor %}
+        </div>
+
+        <div class="form-group">
+          <label for="id_password1" class="form-label">Senha</label>
+          <input type="password" name="password1" id="id_password1"
+                 class="form-input{% if user_form.password1.errors %} form-input-error{% endif %}"
+                 placeholder="Sua senha" required>
+          {% for error in user_form.password1.errors %}
+            <span class="form-error-text">{{ error }}</span>
+          {% endfor %}
+          {% if user_form.password1.help_text %}
+            <small style="color:var(--text-tertiary);font-size:11px;margin-top:2px;">{{ user_form.password1.help_text }}</small>
+          {% endif %}
+        </div>
+
+        <div class="form-group">
+          <label for="id_password2" class="form-label">Confirmar Senha</label>
+          <input type="password" name="password2" id="id_password2"
+                 class="form-input{% if user_form.password2.errors %} form-input-error{% endif %}"
+                 placeholder="Repita a senha" required>
+          {% for error in user_form.password2.errors %}
+            <span class="form-error-text">{{ error }}</span>
+          {% endfor %}
+        </div>
+
+      </div>
+
+      <div class="form-actions" style="border-top:none;margin-top:var(--space-lg);padding-top:0;">
+        <button type="submit" class="btn btn-red">Criar Conta</button>
+      </div>
+    </form>
+
+    <div class="auth-footer">
+      Já tem conta? <a href="{% url 'login' %}">Faça login</a>
     </div>
+  </div>
 </div>
-{% endblock %}
 
+{% endblock %}

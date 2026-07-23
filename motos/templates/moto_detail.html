@@ -1,101 +1,115 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block title %}JJT — {{ object.brand }} {{ object.model }}{% endblock %}
+
 {% block content %}
-<div class="carousel-container">
-  <div class="carousel-slide">
-    {% if object.photo %}<img src="{{ object.photo.url }}" alt="Foto 1">{% endif %}
-    {% if object.photo2 %}<img src="{{ object.photo2.url }}" alt="Foto 2">{% endif %}
-    {% if object.photo3 %}<img src="{{ object.photo3.url }}" alt="Foto 3">{% endif %}
-    {% if object.photo4 %}<img src="{{ object.photo4.url }}" alt="Foto 4">{% endif %}
-    {% if object.photo5 %}<img src="{{ object.photo5.url }}" alt="Foto 5">{% endif %}
-    {% if object.photo6 %}<img src="{{ object.photo6.url }}" alt="Foto 6">{% endif %}
+
+<div class="detail-container fade-in">
+
+  <!-- ===== CARROSSEL ===== -->
+  {% if object.photo %}
+  <div class="carousel-container">
+    <div class="carousel-slide">
+      {% if object.photo %}<img src="{{ object.photo.url }}" alt="Foto 1">{% endif %}
+      {% if object.photo2 %}<img src="{{ object.photo2.url }}" alt="Foto 2">{% endif %}
+      {% if object.photo3 %}<img src="{{ object.photo3.url }}" alt="Foto 3">{% endif %}
+      {% if object.photo4 %}<img src="{{ object.photo4.url }}" alt="Foto 4">{% endif %}
+      {% if object.photo5 %}<img src="{{ object.photo5.url }}" alt="Foto 5">{% endif %}
+      {% if object.photo6 %}<img src="{{ object.photo6.url }}" alt="Foto 6">{% endif %}
+    </div>
+
+    <button class="carousel-btn prev">&#10094;</button>
+    <button class="carousel-btn next">&#10095;</button>
+    <div class="carousel-dots"></div>
   </div>
+  {% endif %}
 
-  <button class="carousel-btn prev">&#10094;</button>
-  <button class="carousel-btn next">&#10095;</button>
-
-  <div class="carousel-dots"></div>
-</div>
-
-
-
-    
-    <div class="card-header-custom">
-      <h2 class="card-title-custom text-center-custom">{{ object.brand }} {{ object.model }}</h2>
-    </div>
-    
-    <div class="card-body-custom">
-      <div class="row">
-        <div class="col-md-6">
-          <p class="card-text-custom">
-            <span class="text-highlight-custom">Ano de fabricação:</span><br>
-            {{ object.factor_year }}
-          </p>
-        </div>
-        <div class="col-md-6">
-          <p class="card-text-custom">
-            <span class="text-highlight-custom">Ano do modelo:</span><br>
-            {{ object.model_year }}
-          </p>
-        </div>
-      </div>
-      
-      <div class="row">
-        <div class="col-md-6">
-          <p class="card-text-custom">
-            <span class="text-highlight-custom">Placa:</span><br>
-            {{ object.plate }}
-          </p>
-        </p>
-
-        {% if object.bio %}
-          <p class="card-text-custom">
-            <span class="text-highlight-custom">Detalhes: </span><br>
-            <strong style="font-size: 1.2em; color: #f4f4f4;"> {{ object.bio }}</strong>
-          </p>
-        {% endif %}
-      </div>
-        
-      <div class="col-md-6">
-        <p class="card-text-custom">
-          <span class="text-highlight-custom">Preço:</span><br>
-          <strong style="font-size: 1.2em; color: #f4f4f4;">
-            {% if object.value %}
-              R$ {{ object.value }}
-            {% else %}
-            Consulte
-            {% endif %}
-          </strong>
-        </p>
-      </div>
-      
-    </div>
-    {% if user.is_authenticated %}
-      <div class="card-footer-custom text-center-custom">
-        <a href="{% url 'moto_update' pk=object.pk %}" class="btn-custom btn-primary-custom">Editar Moto</a>
-        <a href="{% url 'motos_list' %}" class="btn-custom btn-secondary-custom">Voltar à Lista</a>
-        <a href="{% url 'moto_delete' pk=object.pk %}" class="btn-custom btn-danger-custom">Deletar</a>
-    </div>
+  <!-- ===== HEADER ===== -->
+  <div class="detail-header">
+    <h1 class="detail-title">{{ object.brand }} {{ object.model }}</h1>
+    {% if object.factor_year %}
+      <p class="detail-subtitle">{{ object.factor_year }}{% if object.model_year %} · Modelo {{ object.model_year }}{% endif %}</p>
     {% endif %}
   </div>
+
+  <!-- ===== SPECS GRID ===== -->
+  <div class="detail-grid">
+
+    {% if object.factor_year %}
+    <div class="detail-field">
+      <div class="detail-field-label">Ano de fabricação</div>
+      <div class="detail-field-value">{{ object.factor_year }}</div>
+    </div>
+    {% endif %}
+
+    {% if object.model_year %}
+    <div class="detail-field">
+      <div class="detail-field-label">Ano do modelo</div>
+      <div class="detail-field-value">{{ object.model_year }}</div>
+    </div>
+    {% endif %}
+
+    {% if object.plate %}
+    <div class="detail-field">
+      <div class="detail-field-label">Placa</div>
+      <div class="detail-field-value">{{ object.plate }}</div>
+    </div>
+    {% endif %}
+
+    <div class="detail-field">
+      <div class="detail-field-label">Preço</div>
+      <div class="detail-field-value price">
+        {% if object.value %}
+          R$ {{ object.value }}
+        {% else %}
+          <span class="empty">Consulte-nos</span>
+        {% endif %}
+      </div>
+    </div>
+
+    {% if object.bio %}
+    <div class="detail-field full">
+      <div class="detail-field-label">Detalhes</div>
+      <div class="detail-field-value bio-text">{{ object.bio }}</div>
+    </div>
+    {% endif %}
+
+  </div>
+
+  <!-- ===== ACTIONS (admin only) ===== -->
+  {% if user.is_authenticated %}
+    <div class="detail-actions">
+      <a href="{% url 'moto_update' pk=object.pk %}" class="btn btn-green">Editar Moto</a>
+      <a href="{% url 'moto_delete' pk=object.pk %}" class="btn btn-danger">Deletar</a>
+      <a href="{% url 'motos_list' %}" class="btn btn-ghost">Voltar à Lista</a>
+    </div>
+  {% else %}
+    <div class="detail-actions">
+      <a href="{% url 'motos_list' %}" class="btn btn-ghost">Voltar à Lista</a>
+    </div>
+  {% endif %}
+
 </div>
+
 {% endblock %}
 
 
-
 {% block extra_js %}
+{% if object.photo %}
 <script>
 document.addEventListener("DOMContentLoaded", function() {
   const slide = document.querySelector(".carousel-slide");
   const images = slide.querySelectorAll("img");
+  if (images.length <= 1) return;
+
   const prevBtn = document.querySelector(".carousel-btn.prev");
   const nextBtn = document.querySelector(".carousel-btn.next");
   const dotsContainer = document.querySelector(".carousel-dots");
 
   let currentIndex = 0;
 
-  // Criar bolinhas
+  // Create dots
   images.forEach((_, index) => {
     const dot = document.createElement("button");
     dot.addEventListener("click", () => goToSlide(index));
@@ -107,7 +121,7 @@ document.addEventListener("DOMContentLoaded", function() {
   function updateCarousel() {
     slide.style.transform = `translateX(${-currentIndex * 100}%)`;
     dots.forEach(dot => dot.classList.remove("active"));
-    dots[currentIndex].classList.add("active");
+    if (dots[currentIndex]) dots[currentIndex].classList.add("active");
   }
 
   function goToSlide(index) {
@@ -125,9 +139,8 @@ document.addEventListener("DOMContentLoaded", function() {
     updateCarousel();
   });
 
-  // Inicializar
   updateCarousel();
 });
 </script>
+{% endif %}
 {% endblock %}
-
