@@ -16,9 +16,7 @@
   </select>
   <select name="ano">
     <option value="">Todos os anos</option>
-    {% for a in "2024 2025 2026 2027"|cut:" " %}
-      {# Hack simples para anos #}
-    {% endfor %}
+    {% for a in "2024 2025 2026 2027"|cut:" " %}{% endfor %}
     <option value="2024" {% if ano_atual == '2024' %}selected{% endif %}>2024</option>
     <option value="2025" {% if ano_atual == '2025' %}selected{% endif %}>2025</option>
     <option value="2026" {% if ano_atual == '2026' or not ano_atual %}selected{% endif %}>2026</option>
@@ -28,103 +26,182 @@
   <a href="{% url 'stockcontrol:dashboard' %}" class="btn btn-ghost btn-sm">Limpar</a>
 </form>
 
-<!-- Cards -->
+<!-- Cards de Resumo -->
 <div class="dashboard-cards">
-  <div class="dash-card">
-    <div class="dash-card-label">Motos em estoque</div>
+  <div class="dash-card" style="border-left:4px solid var(--info-blue);">
+    <div class="dash-card-label">Total de Motos</div>
+    <div class="dash-card-value">{{ total_motos }}</div>
+    <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">
+      {{ motos_disponiveis }} disponíveis · {{ motos_vendidas }} vendidas · {{ motos_ocultas }} ocultas
+    </div>
+  </div>
+  <div class="dash-card" style="border-left:4px solid var(--success-green);">
+    <div class="dash-card-label">Em Estoque</div>
     <div class="dash-card-value">{{ motos_disponiveis }}</div>
+    <div class="dash-card-value money" style="font-size:16px;">R$ {{ valor_estoque|floatformat:2 }}</div>
   </div>
-  <div class="dash-card">
-    <div class="dash-card-label">Valor em estoque</div>
-    <div class="dash-card-value money">R$ {{ valor_estoque|floatformat:2 }}</div>
-  </div>
-  <div class="dash-card">
+  <div class="dash-card" style="border-left:4px solid var(--ferrari-red);">
     <div class="dash-card-label">Vendidas (período)</div>
     <div class="dash-card-value">{{ motos_vendidas }}</div>
+    <div class="dash-card-value positive" style="font-size:16px;">+ R$ {{ lucro_total|floatformat:2 }}</div>
   </div>
-  <div class="dash-card">
-    <div class="dash-card-label">Lucro total (período)</div>
-    <div class="dash-card-value positive">R$ {{ lucro_total|floatformat:2 }}</div>
-  </div>
-  <div class="dash-card">
+  <div class="dash-card" style="border-left:4px solid var(--warning-red);">
     <div class="dash-card-label">Despesas (período)</div>
-    <div class="dash-card-value negative">R$ {{ total_despesas|floatformat:2 }}</div>
-  </div>
-  <div class="dash-card">
-    <div class="dash-card-label">Total de motos</div>
-    <div class="dash-card-value">{{ total_motos }}</div>
+    <div class="dash-card-value" style="color:var(--warning-red);">- R$ {{ total_despesas|floatformat:2 }}</div>
   </div>
 </div>
 
-<!-- Últimas vendas -->
-<h2 style="font-size:16px;font-weight:500;color:var(--text-primary);margin-bottom:var(--space-md);">Últimas Vendas</h2>
-{% if ultimas_vendas %}
-  <table class="stock-table">
-    <thead>
-      <tr>
-        <th>Moto</th>
-        <th>Valor</th>
-        <th>Lucro</th>
-        <th>Comprador</th>
-        <th>Data</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for s in ultimas_vendas %}
-        <tr>
-          <td><a href="{% url 'stockcontrol:stock_detail' pk=s.pk %}" style="color:var(--ferrari-red);">{{ s.moto.brand }} {{ s.moto.model }}</a></td>
-          <td class="text-right">R$ {{ s.sale_value|floatformat:2 }}</td>
-          <td class="text-right" style="color:{% if s.profit and s.profit > 0 %}var(--success-green){% else %}var(--warning-red){% endif %};">
-            R$ {{ s.profit|floatformat:2|default:'0,00' }}
-          </td>
-          <td>{{ s.buyer_name|default:'---' }}</td>
-          <td>{{ s.sale_date|date:'d/m/Y'|default:'---' }}</td>
-        </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-{% else %}
-  <p style="color:var(--text-muted);">Nenhuma venda registrada no período.</p>
-{% endif %}
+<!-- Gráficos -->
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-md);margin-bottom:var(--space-xl);">
 
-<!-- Últimas motos cadastradas -->
-<h2 style="font-size:16px;font-weight:500;color:var(--text-primary);margin:var(--space-xl) 0 var(--space-md);">Estoque Recente</h2>
-{% if stocks %}
-  <table class="stock-table">
-    <thead>
-      <tr>
-        <th>Moto</th>
-        <th>Custo Total</th>
-        <th>Status</th>
-        <th>Valor Venda</th>
-        <th>Ações</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for s in stocks %}
-        <tr>
-          <td><strong>{{ s.moto.brand }} {{ s.moto.model }}</strong> ({{ s.moto.factor_year|default:'---' }})</td>
-          <td class="text-right">R$ {{ s.total_cost|floatformat:2 }}</td>
-          <td>
-            <span class="badge badge-{{ s.sale_status }}">
-              {% if s.sale_status == 'available' %}Disponível{% elif s.sale_status == 'sold' %}Vendida{% else %}Oculta{% endif %}
-            </span>
-          </td>
-          <td class="text-right">
-            {% if s.sale_value %}
-              R$ {{ s.sale_value|floatformat:2 }}
-            {% else %}
-              <span class="text-muted">---</span>
-            {% endif %}
-          </td>
-          <td>
-            <a href="{% url 'stockcontrol:stock_detail' pk=s.pk %}" class="btn btn-ghost btn-sm">Detalhes</a>
-          </td>
-        </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-{% else %}
-  <p style="color:var(--text-muted);">Nenhuma moto cadastrada no estoque. <a href="{% url 'new_moto' %}" style="color:var(--ferrari-red);">Cadastre a primeira</a>.</p>
-{% endif %}
+  <!-- Donut: Distribuição do Estoque -->
+  <div style="background:var(--card-bg);border:1px solid var(--divider);padding:var(--space-md);">
+    <h3 style="font-size:14px;font-weight:500;color:var(--text-primary);margin-bottom:var(--space-sm);">Distribuição do Estoque</h3>
+    <canvas id="donutChart" height="200"></canvas>
+  </div>
+
+  <!-- Barras: Custo vs Anúncio -->
+  <div style="background:var(--card-bg);border:1px solid var(--divider);padding:var(--space-md);">
+    <h3 style="font-size:14px;font-weight:500;color:var(--text-primary);margin-bottom:var(--space-sm);">Custo vs Valor de Anúncio</h3>
+    <canvas id="barChart" height="200"></canvas>
+  </div>
+</div>
+
+<!-- Últimas movimentações -->
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-md);margin-bottom:var(--space-xl);">
+  <!-- Últimas Vendas -->
+  <div style="background:var(--card-bg);border:1px solid var(--divider);padding:var(--space-md);">
+    <h3 style="font-size:14px;font-weight:500;color:var(--text-primary);margin-bottom:var(--space-sm);">Últimas Vendas</h3>
+    {% if ultimas_vendas %}
+      <table class="stock-table">
+        <thead>
+          <tr><th>Moto</th><th class="text-right">Valor</th><th class="text-right">Lucro</th><th>Data</th></tr>
+        </thead>
+        <tbody>
+          {% for s in ultimas_vendas %}
+            <tr>
+              <td><a href="{% url 'stockcontrol:stock_detail' pk=s.pk %}" style="color:var(--ferrari-red);">{{ s.moto.brand }} {{ s.moto.model }}</a></td>
+              <td class="text-right">R$ {{ s.sale_value|floatformat:2 }}</td>
+              <td class="text-right" style="color:{% if s.profit and s.profit > 0 %}var(--success-green){% else %}var(--warning-red){% endif %};">R$ {{ s.profit|floatformat:2 }}</td>
+              <td>{{ s.sale_date|date:'d/m/Y'|default:'---' }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p style="color:var(--text-muted);font-size:13px;">Nenhuma venda no período.</p>
+    {% endif %}
+  </div>
+
+  <!-- Estoque Recente -->
+  <div style="background:var(--card-bg);border:1px solid var(--divider);padding:var(--space-md);">
+    <h3 style="font-size:14px;font-weight:500;color:var(--text-primary);margin-bottom:var(--space-sm);">Estoque Recente</h3>
+    {% if stocks %}
+      <table class="stock-table">
+        <thead>
+          <tr><th>Moto</th><th class="text-right">Custo</th><th class="text-right">Anúncio</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+          {% for s in stocks %}
+            <tr>
+              <td><a href="{% url 'stockcontrol:stock_detail' pk=s.pk %}" style="color:var(--ferrari-red);">{{ s.moto.brand }} {{ s.moto.model }}</a></td>
+              <td class="text-right">R$ {{ s.total_cost|floatformat:2 }}</td>
+              <td class="text-right">R$ {{ s.moto.value|default:'0,00' }}</td>
+              <td><span class="badge badge-{{ s.sale_status }}">{% if s.sale_status == 'available' %}Disponível{% elif s.sale_status == 'sold' %}Vendida{% else %}Oculta{% endif %}</span></td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p style="color:var(--text-muted);font-size:13px;">Nenhuma moto cadastrada.</p>
+    {% endif %}
+  </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var theme = document.documentElement.getAttribute('data-theme') || 'dark';
+  var textColor = theme === 'light' ? '#181818' : '#D2D2D2';
+  var gridColor = theme === 'light' ? '#D2D2D2' : '#444444';
+
+  // ---- Donut: Distribuição do Estoque ----
+  var donutCtx = document.getElementById('donutChart');
+  if (donutCtx) {
+    new Chart(donutCtx, {
+      type: 'doughnut',
+      data: {
+        labels: ['Disponíveis ({{ motos_disponiveis }})', 'Vendidas ({{ motos_vendidas }})', 'Ocultas ({{ motos_ocultas }})'],
+        datasets: [{
+          data: [{{ motos_disponiveis }}, {{ motos_vendidas }}, {{ motos_ocultas }}],
+          backgroundColor: ['#03904A', '#4C98B9', '#F13A2C'],
+          borderWidth: 0,
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: 'bottom',
+            labels: { color: textColor, padding: 12, usePointStyle: true, font: { size: 11 } }
+          }
+        }
+      }
+    });
+  }
+
+  // ---- Barras: Custo vs Anúncio ----
+  var barCtx = document.getElementById('barChart');
+  if (barCtx) {
+    new Chart(barCtx, {
+      type: 'bar',
+      data: {
+        labels: {{ chart_labels|safe }},
+        datasets: [
+          {
+            label: 'Custo Total',
+            data: {{ chart_custos|safe }},
+            backgroundColor: 'rgba(218, 41, 28, 0.7)',
+            borderColor: '#DA291C',
+            borderWidth: 1,
+            borderRadius: 2,
+          },
+          {
+            label: 'Valor Anúncio',
+            data: {{ chart_anuncio|safe }},
+            backgroundColor: 'rgba(3, 144, 74, 0.6)',
+            borderColor: '#03904A',
+            borderWidth: 1,
+            borderRadius: 2,
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: 'bottom',
+            labels: { color: textColor, padding: 12, usePointStyle: true, font: { size: 11 } }
+          }
+        },
+        scales: {
+          x: {
+            ticks: { color: textColor, font: { size: 10 } },
+            grid: { color: gridColor }
+          },
+          y: {
+            ticks: { color: textColor, font: { size: 10 }, callback: function(v) { return 'R$' + v; } },
+            grid: { color: gridColor }
+          }
+        }
+      }
+    });
+  }
+});
+</script>
 {% endblock %}

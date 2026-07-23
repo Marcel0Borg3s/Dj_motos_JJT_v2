@@ -82,15 +82,38 @@ class StockDashboardView(TemplateView):
             sale_status='sold'
         ).select_related('moto__brand').order_by('-sale_date')[:5]
 
+        # ---- Dados para gráficos ----
+        motos_ocultas = stocks.filter(sale_status='hidden').count()
+
+        # Dados do gráfico de barras: custo vs valor anunciado por moto
+        stocks_ativas = stocks.filter(
+            sale_status='available'
+        ).select_related('moto__brand').order_by('moto__brand__name', 'moto__model')[:10]
+
+        chart_labels = []
+        chart_custos = []
+        chart_anuncio = []
+        for s in stocks_ativas:
+            nome = f'{s.moto.brand} {s.moto.model}'
+            if len(nome) > 18:
+                nome = nome[:16] + '..'
+            chart_labels.append(nome)
+            chart_custos.append(s.total_cost)
+            chart_anuncio.append(s.moto.value or 0)
+
         ctx.update({
             'total_motos': total_motos,
             'motos_disponiveis': motos_disponiveis,
             'motos_vendidas': motos_vendidas,
+            'motos_ocultas': motos_ocultas,
             'valor_estoque': valor_estoque,
             'lucro_total': lucro_total,
             'total_despesas': total_despesas,
             'ultimas_vendas': ultimas_vendas,
-            'stocks': stocks.select_related('moto__brand').order_by('-created_at')[:20],
+            'stocks': stocks.select_related('moto__brand').order_by('-created_at')[:10],
+            'chart_labels': chart_labels,
+            'chart_custos': chart_custos,
+            'chart_anuncio': chart_anuncio,
             'mes_atual': month or '',
             'ano_atual': year or '',
             'meses': [
