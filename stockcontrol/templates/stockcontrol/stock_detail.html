@@ -25,15 +25,24 @@
     {% elif stock.sale_status == 'hidden' %}
     · <a href="{% url 'stockcontrol:stock_toggle_visible' pk=stock.pk %}" class="btn btn-ghost btn-sm" style="color:var(--success-green);padding:2px 8px;font-size:11px;">Exibir no site</a>
     {% endif %}
-    {% if stock.show_price %}
-      · <a href="{% url 'stockcontrol:stock_toggle_price' pk=stock.pk %}" class="btn btn-ghost btn-sm" style="color:var(--text-muted);padding:2px 8px;font-size:11px;">Ocultar preço</a>
-    {% else %}
-      · <a href="{% url 'stockcontrol:stock_toggle_price' pk=stock.pk %}" class="btn btn-ghost btn-sm" style="color:var(--success-green);padding:2px 8px;font-size:11px;">Exibir preço</a>
-    {% endif %}
 </p>
 
 <!-- Grid de custos -->
 <div class="dashboard-cards">
+  <div class="dash-card" style="border-color:var(--ferrari-red);">
+    <div class="dash-card-label">Exibir preço no site público</div>
+    <div style="margin-top:var(--space-sm);">
+      <label class="toggle-switch">
+        <input type="checkbox" id="showPriceToggle"
+               onchange="window.location.href='{% url 'stockcontrol:stock_toggle_price' pk=stock.pk %}'"
+               {% if stock.show_price %}checked{% endif %}>
+        <span class="toggle-track"></span>
+        <span class="toggle-label {% if stock.show_price %}on{% else %}off{% endif %}">
+          {% if stock.show_price %}Visível{% else %}Oculto{% endif %}
+        </span>
+      </label>
+    </div>
+  </div>
   <div class="dash-card">
     <div class="dash-card-label">Custo de aquisição</div>
     <div class="dash-card-value money">R$ {{ stock.acquisition_cost|floatformat:2 }}</div>

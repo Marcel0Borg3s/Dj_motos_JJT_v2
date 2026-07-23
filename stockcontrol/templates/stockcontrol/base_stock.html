@@ -295,6 +295,52 @@
       .stock-table {
         font-size: 12px;
       }
+
+      /* Toggle Switch */
+      .toggle-switch {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        cursor: pointer;
+        font-family: var(--font-heading);
+        font-size: 13px;
+        color: var(--text-secondary);
+        user-select: none;
+      }
+      .toggle-switch input {
+        display: none;
+      }
+      .toggle-track {
+        position: relative;
+        width: 44px;
+        height: 24px;
+        background: var(--border-dark);
+        border-radius: 12px;
+        transition: background var(--transition-fast);
+        flex-shrink: 0;
+      }
+      .toggle-track::after {
+        content: '';
+        position: absolute;
+        top: 3px;
+        left: 3px;
+        width: 18px;
+        height: 18px;
+        background: var(--pure-white);
+        border-radius: 50%;
+        transition: transform var(--transition-fast);
+      }
+      .toggle-switch input:checked + .toggle-track {
+        background: var(--success-green);
+      }
+      .toggle-switch input:checked + .toggle-track::after {
+        transform: translateX(20px);
+      }
+      .toggle-label {
+        font-size: 12px;
+      }
+      .toggle-label.off { color: var(--text-muted); }
+      .toggle-label.on { color: var(--success-green); }
       .stock-table th,
       .stock-table td {
         padding: 6px 8px;
