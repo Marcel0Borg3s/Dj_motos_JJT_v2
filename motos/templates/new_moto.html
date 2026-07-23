@@ -54,6 +54,48 @@
   text-transform: uppercase;
   margin-left: 8px;
 }
+
+/* Toggle Switch */
+.toggle-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-family: var(--font-heading);
+  font-size: 13px;
+  color: var(--text-secondary);
+  user-select: none;
+}
+.toggle-switch input { display: none; }
+.toggle-track {
+  position: relative;
+  width: 44px;
+  height: 24px;
+  background: var(--border-dark);
+  border-radius: 12px;
+  transition: background var(--transition-fast);
+  flex-shrink: 0;
+}
+.toggle-track::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 18px;
+  height: 18px;
+  background: var(--pure-white);
+  border-radius: 50%;
+  transition: transform var(--transition-fast);
+}
+.toggle-switch input:checked + .toggle-track {
+  background: var(--success-green);
+}
+.toggle-switch input:checked + .toggle-track::after {
+  transform: translateX(20px);
+}
+.toggle-label { font-size: 12px; }
+.toggle-label.off { color: var(--text-muted); }
+.toggle-label.on { color: var(--success-green); }
 </style>
 {% endblock %}
 
@@ -127,6 +169,16 @@
           </div>
         {% endfor %}
 
+      </div>
+
+      <!-- Preço no site público (aviso) -->
+      <div class="form-group full" style="margin-top:var(--space-sm);padding-top:var(--space-md);border-top:1px solid var(--divider);">
+        <label class="form-label">Preço no site público</label>
+        <div style="display:flex;align-items:center;gap:10px;padding:8px 0;color:var(--text-tertiary);font-size:13px;">
+          <span style="font-size:18px;">&#9632;</span>
+          A exibição do preço pode ser configurada depois em
+          <strong style="color:var(--ferrari-red);">Controle &rarr; Estoque</strong>
+        </div>
       </div>
 
       <div class="form-actions">

@@ -54,6 +54,48 @@
   text-transform: uppercase;
   margin-left: 8px;
 }
+
+/* Toggle Switch */
+.toggle-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-family: var(--font-heading);
+  font-size: 13px;
+  color: var(--text-secondary);
+  user-select: none;
+}
+.toggle-switch input { display: none; }
+.toggle-track {
+  position: relative;
+  width: 44px;
+  height: 24px;
+  background: var(--border-dark);
+  border-radius: 12px;
+  transition: background var(--transition-fast);
+  flex-shrink: 0;
+}
+.toggle-track::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 18px;
+  height: 18px;
+  background: var(--pure-white);
+  border-radius: 50%;
+  transition: transform var(--transition-fast);
+}
+.toggle-switch input:checked + .toggle-track {
+  background: var(--success-green);
+}
+.toggle-switch input:checked + .toggle-track::after {
+  transform: translateX(20px);
+}
+.toggle-label { font-size: 12px; }
+.toggle-label.off { color: var(--text-muted); }
+.toggle-label.on { color: var(--success-green); }
 </style>
 {% endblock %}
 
@@ -129,6 +171,23 @@
             {% endif %}
           </div>
         {% endfor %}
+
+        <!-- Toggle: exibir/ocultar preço no site público -->
+        <div class="form-group full" style="margin-top:var(--space-sm);padding-top:var(--space-md);border-top:1px solid var(--divider);">
+          <label class="form-label">Preço no site público</label>
+          <label class="toggle-switch" style="cursor:pointer;">
+            <input type="checkbox" id="showPriceToggle"
+                   onchange="window.location.href='{% url 'stockcontrol:stock_toggle_price' pk=object.stock.pk %}'"
+                   {% if object.stock.show_price %}checked{% endif %}>
+            <span class="toggle-track"></span>
+            <span class="toggle-label {% if object.stock.show_price %}on{% else %}off{% endif %}">
+              {% if object.stock.show_price %}Visível{% else %}Oculto{% endif %}
+            </span>
+          </label>
+          <small style="color:var(--text-tertiary);font-size:11px;display:block;margin-top:4px;">
+            Quando oculto, mostra "Consulte-nos" no lugar do valor.
+          </small>
+        </div>
 
       </div>
 
