@@ -182,13 +182,10 @@ class StockCostUpdateView(UpdateView):
 
     def get_object(self, queryset=None):
         """
-        Retorna o MotoStock para a moto informada na URL.
-        Cria automaticamente se não existir.
+        Retorna o MotoStock para o pk informado na URL.
+        O pk é o ID do registro MotoStock (não da Motos).
         """
-        moto_pk = self.kwargs.get('pk')
-        moto = get_object_or_404(Motos, pk=moto_pk)
-        stock, _ = MotoStock.objects.get_or_create(moto=moto)
-        return stock
+        return get_object_or_404(MotoStock, pk=self.kwargs.get('pk'))
 
     def get_success_url(self):
         """Redireciona para o detalhe da moto no estoque."""
@@ -213,11 +210,8 @@ class SaleCreateView(UpdateView):
     template_name = 'stockcontrol/sale_form.html'
 
     def get_object(self, queryset=None):
-        """Retorna ou cria o MotoStock para a moto informada."""
-        moto_pk = self.kwargs.get('pk')
-        moto = get_object_or_404(Motos, pk=moto_pk)
-        stock, _ = MotoStock.objects.get_or_create(moto=moto)
-        return stock
+        """Retorna o MotoStock pelo pk informado na URL."""
+        return get_object_or_404(MotoStock, pk=self.kwargs.get('pk'))
 
     def form_valid(self, form):
         """

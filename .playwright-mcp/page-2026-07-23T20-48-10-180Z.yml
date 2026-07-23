@@ -1,0 +1,143 @@
+- generic [active] [ref=f46e1]:
+  - navigation [ref=f46e2]:
+    - link "JJT JJT Motorcycles" [ref=f46e4] [cursor=pointer]:
+      - /url: /motos/
+      - img "JJT" [ref=f46e5]
+      - generic [ref=f46e6]: JJT Motorcycles
+    - generic [ref=f46e7]:
+      - link "Motos" [ref=f46e8] [cursor=pointer]:
+        - /url: /motos/
+      - link "Controle" [ref=f46e9] [cursor=pointer]:
+        - /url: /stock/
+    - generic [ref=f46e10]:
+      - button "Alternar tema" [ref=f46e11] [cursor=pointer]:
+        - generic [ref=f46e12]: ☾
+      - generic [ref=f46e13]: mborges
+      - link "Sair" [ref=f46e14] [cursor=pointer]:
+        - /url: /logout/
+  - generic [ref=f46e15]:
+    - complementary [ref=f46e16]:
+      - generic [ref=f46e17]: Controle
+      - list [ref=f46e18]:
+        - listitem [ref=f46e19]:
+          - link "■ Dashboard" [ref=f46e20] [cursor=pointer]:
+            - /url: /stock/
+            - generic [ref=f46e21]: ■
+            - text: Dashboard
+        - listitem [ref=f46e22]:
+          - link "☰ Estoque (Planilha)" [ref=f46e23] [cursor=pointer]:
+            - /url: /stock/motos/
+            - generic [ref=f46e24]: ☰
+            - text: Estoque (Planilha)
+        - listitem [ref=f46e25]:
+          - link "$ Despesas" [ref=f46e26] [cursor=pointer]:
+            - /url: /stock/despesas/
+            - generic [ref=f46e27]: $
+            - text: Despesas
+      - generic [ref=f46e29]: Ações Rápidas
+      - list [ref=f46e30]:
+        - listitem [ref=f46e31]:
+          - link "+ Nova Moto" [ref=f46e32] [cursor=pointer]:
+            - /url: /new_moto/
+            - generic [ref=f46e33]: +
+            - text: Nova Moto
+        - listitem [ref=f46e34]:
+          - link "+ Nova Despesa" [ref=f46e35] [cursor=pointer]:
+            - /url: /stock/despesas/nova/
+            - generic [ref=f46e36]: +
+            - text: Nova Despesa
+      - list [ref=f46e38]:
+        - listitem [ref=f46e39]:
+          - link "← Voltar ao Site" [ref=f46e40] [cursor=pointer]:
+            - /url: /motos/
+            - generic [ref=f46e41]: ←
+            - text: Voltar ao Site
+    - main [ref=f46e42]:
+      - heading "Planilha de Estoque" [level=1] [ref=f46e43]
+      - generic [ref=f46e44]:
+        - link "Disponíveis" [ref=f46e45] [cursor=pointer]:
+          - /url: "?status=available"
+        - link "Vendidas" [ref=f46e46] [cursor=pointer]:
+          - /url: "?status=sold"
+        - link "Ocultas" [ref=f46e47] [cursor=pointer]:
+          - /url: "?status=hidden"
+        - link "Todas" [ref=f46e48] [cursor=pointer]:
+          - /url: /stock/motos/
+        - link "+ Nova Moto" [ref=f46e49] [cursor=pointer]:
+          - /url: /new_moto/
+      - table [ref=f46e51]:
+        - rowgroup [ref=f46e52]:
+          - row [ref=f46e53]:
+            - columnheader "Moto" [ref=f46e54]
+            - columnheader "Ano" [ref=f46e55]
+            - columnheader "Custo Total" [ref=f46e56]
+            - columnheader "Valor Venda" [ref=f46e57]
+            - columnheader "Lucro" [ref=f46e58]
+            - columnheader "Margem" [ref=f46e59]
+            - columnheader "Status" [ref=f46e60]
+            - columnheader "Ações" [ref=f46e61]
+        - rowgroup [ref=f46e62]:
+          - row [ref=f46e63]:
+            - cell [ref=f46e64]:
+              - strong [ref=f46e65]: Kawasaki Ninja ZX-6R
+            - cell "2025" [ref=f46e66]
+            - cell "R$ 49500,00" [ref=f46e67]
+            - cell "---" [ref=f46e68]
+            - cell "---" [ref=f46e69]
+            - cell "---" [ref=f46e70]
+            - cell "Disponível" [ref=f46e71]
+            - cell [ref=f46e73]:
+              - link "Ver" [ref=f46e74] [cursor=pointer]:
+                - /url: /stock/motos/4/
+              - link "Custos" [ref=f46e75] [cursor=pointer]:
+                - /url: /stock/motos/4/custos/
+              - link "Vender" [ref=f46e76] [cursor=pointer]:
+                - /url: /stock/motos/4/vender/
+          - row [ref=f46e77]:
+            - cell [ref=f46e78]:
+              - strong [ref=f46e79]: Honda CB 1000R
+            - cell "2024" [ref=f46e80]
+            - cell "R$ 0,00" [ref=f46e81]
+            - cell "---" [ref=f46e82]
+            - cell "---" [ref=f46e83]
+            - cell "---" [ref=f46e84]
+            - cell "Disponível" [ref=f46e85]
+            - cell [ref=f46e87]:
+              - link "Ver" [ref=f46e88] [cursor=pointer]:
+                - /url: /stock/motos/3/
+              - link "Custos" [ref=f46e89] [cursor=pointer]:
+                - /url: /stock/motos/3/custos/
+              - link "Vender" [ref=f46e90] [cursor=pointer]:
+                - /url: /stock/motos/3/vender/
+          - row [ref=f46e91]:
+            - cell [ref=f46e92]:
+              - strong [ref=f46e93]: Suzuki GSX 8R
+            - cell "2026" [ref=f46e94]
+            - cell "R$ 0,00" [ref=f46e95]
+            - cell "---" [ref=f46e96]
+            - cell "---" [ref=f46e97]
+            - cell "---" [ref=f46e98]
+            - cell "Disponível" [ref=f46e99]
+            - cell [ref=f46e101]:
+              - link "Ver" [ref=f46e102] [cursor=pointer]:
+                - /url: /stock/motos/2/
+              - link "Custos" [ref=f46e103] [cursor=pointer]:
+                - /url: /stock/motos/2/custos/
+              - link "Vender" [ref=f46e104] [cursor=pointer]:
+                - /url: /stock/motos/2/vender/
+          - row [ref=f46e105]:
+            - cell [ref=f46e106]:
+              - strong [ref=f46e107]: Yamaha Aerox
+            - cell "2025" [ref=f46e108]
+            - cell "R$ 0,00" [ref=f46e109]
+            - cell "---" [ref=f46e110]
+            - cell "---" [ref=f46e111]
+            - cell "---" [ref=f46e112]
+            - cell "Disponível" [ref=f46e113]
+            - cell [ref=f46e115]:
+              - link "Ver" [ref=f46e116] [cursor=pointer]:
+                - /url: /stock/motos/1/
+              - link "Custos" [ref=f46e117] [cursor=pointer]:
+                - /url: /stock/motos/1/custos/
+              - link "Vender" [ref=f46e118] [cursor=pointer]:
+                - /url: /stock/motos/1/vender/
