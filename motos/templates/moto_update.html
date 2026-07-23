@@ -149,10 +149,32 @@
                 {% endif %}
               </div>
             {% elif field.field.widget.input_type == 'number' or field.name == 'factor_year' or field.name == 'model_year' or field.name == 'value' %}
+              {% if field.name == 'value' %}
+              <div style="display:flex;align-items:center;gap:10px;">
+                <input type="number" name="{{ field.name }}" id="{{ field.id_for_label }}"
+                       class="form-input{% if field.errors %} form-input-error{% endif %}"
+                       value="{{ field.value|default:'' }}"
+                       placeholder="{{ field.label }}"
+                       style="flex:1;">
+                <label class="toggle-switch" style="flex-shrink:0;gap:6px;" title="Exibir preço no site">
+                  <input type="checkbox" id="showPriceToggle"
+                         {% if object.stock.show_price %}checked{% endif %}
+                         onchange="togglePreco(this)">
+                  <span class="toggle-track"></span>
+                </label>
+                <span id="priceStatus" style="font-size:11px;color:{% if object.stock.show_price %}var(--success-green){% else %}var(--text-muted){% endif %};white-space:nowrap;flex-shrink:0;">
+                  {% if object.stock.show_price %}Visível{% else %}Oculto{% endif %}
+                </span>
+              </div>
+              <small style="color:var(--text-tertiary);font-size:11px;display:block;margin-top:2px;">
+                Alternar visibilidade do preço no site público
+              </small>
+              {% else %}
               <input type="number" name="{{ field.name }}" id="{{ field.id_for_label }}"
                      class="form-input{% if field.errors %} form-input-error{% endif %}"
                      value="{{ field.value|default:'' }}"
                      placeholder="{{ field.label }}">
+              {% endif %}
             {% else %}
               <input type="text" name="{{ field.name }}" id="{{ field.id_for_label }}"
                      class="form-input{% if field.errors %} form-input-error{% endif %}"
@@ -171,23 +193,6 @@
             {% endif %}
           </div>
         {% endfor %}
-
-        <!-- Toggle: exibir/ocultar preço no site público -->
-        <div class="form-group full" style="margin-top:var(--space-sm);padding-top:var(--space-md);border-top:1px solid var(--divider);">
-          <label class="form-label">Preço no site público</label>
-          <label class="toggle-switch" style="cursor:pointer;">
-            <input type="checkbox" id="showPriceToggle"
-                   onchange="window.location.href='{% url 'stockcontrol:stock_toggle_price' pk=object.stock.pk %}'"
-                   {% if object.stock.show_price %}checked{% endif %}>
-            <span class="toggle-track"></span>
-            <span class="toggle-label {% if object.stock.show_price %}on{% else %}off{% endif %}">
-              {% if object.stock.show_price %}Visível{% else %}Oculto{% endif %}
-            </span>
-          </label>
-          <small style="color:var(--text-tertiary);font-size:11px;display:block;margin-top:4px;">
-            Quando oculto, mostra "Consulte-nos" no lugar do valor.
-          </small>
-        </div>
 
       </div>
 
@@ -247,6 +252,28 @@ function gerarDescricao() {
   .finally(() => {
     btn.classList.remove('loading');
     btn.disabled = false;
+  });
+}
+</script>
+
+<script>
+function togglePreco(checkbox) {
+  var statusSpan = document.getElementById('priceStatus');
+  fetch('{% url "stockcontrol:stock_toggle_price" pk=object.stock.pk %}', {
+    method: 'GET',
+    headers: { 'X-Requested-With': 'XMLHttpRequest' },
+  })
+  .then(function() {
+    if (checkbox.checked) {
+      statusSpan.textContent = 'Visível';
+      statusSpan.style.color = 'var(--success-green)';
+    } else {
+      statusSpan.textContent = 'Oculto';
+      statusSpan.style.color = 'var(--text-muted)';
+    }
+  })
+  .catch(function() {
+    checkbox.checked = !checkbox.checked;
   });
 }
 </script>
