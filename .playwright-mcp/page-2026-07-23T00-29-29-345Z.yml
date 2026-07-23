@@ -1,0 +1,86 @@
+- generic [ref=f24e2]:
+  - navigation [ref=f24e3]:
+    - link "JJT JJT Motorcycles" [ref=f24e5] [cursor=pointer]:
+      - /url: /motos/
+      - img "JJT" [ref=f24e6]
+      - generic [ref=f24e7]: JJT Motorcycles
+    - generic [ref=f24e8]:
+      - link "Motos" [ref=f24e9] [cursor=pointer]:
+        - /url: /motos/
+      - link "WhatsApp" [ref=f24e10] [cursor=pointer]:
+        - /url: https://wa.me/5519997797611
+    - generic [ref=f24e11]:
+      - generic [ref=f24e12]: mborges
+      - link "+ Nova Moto" [ref=f24e13] [cursor=pointer]:
+        - /url: /new_moto/
+      - link "Novo user" [ref=f24e14] [cursor=pointer]:
+        - /url: /register/
+      - link "Sair" [ref=f24e15] [cursor=pointer]:
+        - /url: /logout/
+  - main [ref=f24e16]:
+    - generic [ref=f24e18]:
+      - heading "Cadastrar Nova Moto" [level=1] [ref=f24e19]
+      - generic [ref=f24e20]:
+        - generic [ref=f24e21]:
+          - generic [ref=f24e22]:
+            - generic [ref=f24e23]: Model
+            - textbox "Model" [ref=f24e24]: R 1250 GS
+          - generic [ref=f24e25]:
+            - generic [ref=f24e26]: Marca
+            - textbox "Marca" [ref=f24e27]: BMW
+          - generic [ref=f24e28]:
+            - generic [ref=f24e29]: Factor year
+            - spinbutton "Factor year" [ref=f24e30]: "2024"
+          - generic [ref=f24e31]:
+            - generic [ref=f24e32]: Model year
+            - spinbutton "Model year" [ref=f24e33]: "2025"
+          - generic [ref=f24e34]:
+            - generic [ref=f24e35]: Plate
+            - textbox "Plate" [ref=f24e36]
+          - generic [ref=f24e37]:
+            - generic [ref=f24e38]: Value
+            - spinbutton "Value" [active] [ref=f24e39]: "85000"
+          - generic [ref=f24e40]:
+            - generic [ref=f24e41]: Bio
+            - generic [ref=f24e42]:
+              - textbox "Bio" [ref=f24e43]
+              - generic [ref=f24e44]:
+                - button "⚡ Gerar descrição técnica com IA" [ref=f24e45] [cursor=pointer]
+                - generic [ref=f24e47]: OpenRouter
+          - generic [ref=f24e48]:
+            - generic [ref=f24e49]: Photo
+            - button "Photo" [ref=f24e50]
+          - generic [ref=f24e51]:
+            - generic [ref=f24e52]: Photo2
+            - button "Photo2" [ref=f24e53]
+          - generic [ref=f24e54]:
+            - generic [ref=f24e55]: Photo3
+            - button "Photo3" [ref=f24e56]
+          - generic [ref=f24e57]:
+            - generic [ref=f24e58]: Photo4
+            - button "Photo4" [ref=f24e59]
+          - generic [ref=f24e60]:
+            - generic [ref=f24e61]: Photo5
+            - button "Photo5" [ref=f24e62]
+          - generic [ref=f24e63]:
+            - generic [ref=f24e64]: Photo6
+            - button "Photo6" [ref=f24e65]
+        - generic [ref=f24e66]:
+          - button "Cadastrar Moto" [ref=f24e67] [cursor=pointer]
+          - link "Cancelar" [ref=f24e68] [cursor=pointer]:
+            - /url: /motos/
+  - contentinfo [ref=f24e69]:
+    - generic [ref=f24e70]:
+      - generic [ref=f24e71]:
+        - img "JJT" [ref=f24e72]
+        - generic [ref=f24e73]: JJT Motorcycles
+      - generic [ref=f24e74]:
+        - generic [ref=f24e75]: JJT Motos © 2025 — Todos os direitos reservados.
+        - generic [ref=f24e76]: "CNPJ: 00.000.000/0001-00 | Rua das Motos, 123, São Paulo - SP"
+      - generic [ref=f24e77]:
+        - link "GitHub" [ref=f24e78] [cursor=pointer]:
+          - /url: https://github.com/Marcel0Borg3s
+        - text: "|"
+        - link "LinkedIn" [ref=f24e79] [cursor=pointer]:
+          - /url: https://www.linkedin.com/in/mborgesx
+    - generic [ref=f24e80]: Desenvolvido por Marcelo Borges

@@ -1,0 +1,107 @@
+- generic [active] [ref=f34e1]:
+  - navigation [ref=f34e2]:
+    - link "JJT JJT Motorcycles" [ref=f34e4] [cursor=pointer]:
+      - /url: /motos/
+      - img "JJT" [ref=f34e5]
+      - generic [ref=f34e6]: JJT Motorcycles
+    - generic [ref=f34e7]:
+      - link "Motos" [ref=f34e8] [cursor=pointer]:
+        - /url: /motos/
+      - link "Controle" [ref=f34e9] [cursor=pointer]:
+        - /url: /stock/
+    - generic [ref=f34e10]:
+      - button "Alternar tema" [ref=f34e11] [cursor=pointer]:
+        - generic [ref=f34e12]: ☾
+      - generic [ref=f34e13]: mborges
+      - link "Sair" [ref=f34e14] [cursor=pointer]:
+        - /url: /logout/
+  - generic [ref=f34e15]:
+    - complementary [ref=f34e16]:
+      - generic [ref=f34e17]: Controle
+      - list [ref=f34e18]:
+        - listitem [ref=f34e19]:
+          - link "■ Dashboard" [ref=f34e20] [cursor=pointer]:
+            - /url: /stock/
+            - generic [ref=f34e21]: ■
+            - text: Dashboard
+        - listitem [ref=f34e22]:
+          - link "☰ Estoque (Planilha)" [ref=f34e23] [cursor=pointer]:
+            - /url: /stock/motos/
+            - generic [ref=f34e24]: ☰
+            - text: Estoque (Planilha)
+        - listitem [ref=f34e25]:
+          - link "$ Despesas" [ref=f34e26] [cursor=pointer]:
+            - /url: /stock/despesas/
+            - generic [ref=f34e27]: $
+            - text: Despesas
+      - generic [ref=f34e29]: Ações Rápidas
+      - list [ref=f34e30]:
+        - listitem [ref=f34e31]:
+          - link "+ Nova Moto" [ref=f34e32] [cursor=pointer]:
+            - /url: /new_moto/
+            - generic [ref=f34e33]: +
+            - text: Nova Moto
+        - listitem [ref=f34e34]:
+          - link "+ Nova Despesa" [ref=f34e35] [cursor=pointer]:
+            - /url: /stock/despesas/nova/
+            - generic [ref=f34e36]: +
+            - text: Nova Despesa
+      - list [ref=f34e38]:
+        - listitem [ref=f34e39]:
+          - link "← Voltar ao Site" [ref=f34e40] [cursor=pointer]:
+            - /url: /motos/
+            - generic [ref=f34e41]: ←
+            - text: Voltar ao Site
+    - main [ref=f34e42]:
+      - heading "Dashboard Financeiro" [level=1] [ref=f34e43]
+      - generic [ref=f34e44]:
+        - combobox [ref=f34e45]:
+          - option "Todos os meses" [selected]
+          - option "Janeiro"
+          - option "Fevereiro"
+          - option "Março"
+          - option "Abril"
+          - option "Maio"
+          - option "Junho"
+          - option "Julho"
+          - option "Agosto"
+          - option "Setembro"
+          - option "Outubro"
+          - option "Novembro"
+          - option "Dezembro"
+        - combobox [ref=f34e46]:
+          - option "Todos os anos"
+          - option "2024"
+          - option "2025"
+          - option "2026" [selected]
+          - option "2027"
+        - button "Filtrar" [ref=f34e47] [cursor=pointer]
+        - link "Limpar" [ref=f34e48] [cursor=pointer]:
+          - /url: /stock/
+      - generic [ref=f34e49]:
+        - generic [ref=f34e50]:
+          - generic [ref=f34e51]: Motos em estoque
+          - generic [ref=f34e52]: "0"
+        - generic [ref=f34e53]:
+          - generic [ref=f34e54]: Valor em estoque
+          - generic [ref=f34e55]: R$ 0,00
+        - generic [ref=f34e56]:
+          - generic [ref=f34e57]: Vendidas (período)
+          - generic [ref=f34e58]: "0"
+        - generic [ref=f34e59]:
+          - generic [ref=f34e60]: Lucro total (período)
+          - generic [ref=f34e61]: R$ 0,00
+        - generic [ref=f34e62]:
+          - generic [ref=f34e63]: Despesas (período)
+          - generic [ref=f34e64]: R$ 0,00
+        - generic [ref=f34e65]:
+          - generic [ref=f34e66]: Total de motos
+          - generic [ref=f34e67]: "0"
+      - heading "Últimas Vendas" [level=2] [ref=f34e68]
+      - paragraph [ref=f34e69]: Nenhuma venda registrada no período.
+      - heading "Estoque Recente" [level=2] [ref=f34e70]
+      - paragraph [ref=f34e71]:
+        - text: Nenhuma moto cadastrada no estoque.
+        - link "Cadastre a primeira" [ref=f34e72] [cursor=pointer]:
+          - /url: /new_moto/
+        - text: .

@@ -1,0 +1,444 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}JJT — Controle{% endblock %}</title>
+  <script>
+    (function() {
+      var theme = localStorage.getItem('theme');
+      if (theme === 'light' || theme === 'dark') {
+        document.documentElement.setAttribute('data-theme', theme);
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="{% static 'css/ferrari.css' %}">
+  <style>
+    /* ===== LAYOUT COM SIDEBAR ===== */
+    .stock-layout {
+      display: flex;
+      min-height: calc(100vh - 52px);
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 240px;
+      background: var(--card-bg);
+      border-right: 1px solid var(--divider);
+      padding: var(--space-md) 0;
+      flex-shrink: 0;
+    }
+
+    .sidebar-title {
+      font-family: var(--font-heading);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: var(--space-sm) var(--space-lg);
+      margin-bottom: var(--space-xs);
+    }
+
+    .sidebar-nav {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .sidebar-nav li {
+      margin: 0;
+    }
+
+    .sidebar-nav a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px var(--space-lg);
+      font-family: var(--font-heading);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: all var(--transition-fast);
+      border-left: 3px solid transparent;
+    }
+
+    .sidebar-nav a:hover {
+      background: rgba(218, 41, 28, 0.06);
+      color: var(--ferrari-red);
+    }
+
+    .sidebar-nav a.active {
+      background: rgba(218, 41, 28, 0.08);
+      color: var(--ferrari-red);
+      border-left-color: var(--ferrari-red);
+      font-weight: 600;
+    }
+
+    .sidebar-nav .nav-icon {
+      font-size: 16px;
+      width: 20px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .sidebar-divider {
+      height: 1px;
+      background: var(--divider);
+      margin: var(--space-sm) var(--space-lg);
+    }
+
+    /* Conteúdo principal */
+    .stock-content {
+      flex: 1;
+      padding: var(--space-xl);
+      overflow-x: auto;
+      max-width: calc(100vw - 240px);
+    }
+
+    .stock-content h1 {
+      font-family: var(--font-heading);
+      font-size: 22px;
+      font-weight: 500;
+      color: var(--text-primary);
+      margin-bottom: var(--space-lg);
+    }
+
+    /* ===== CARDS DO DASHBOARD ===== */
+    .dashboard-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: var(--space-md);
+      margin-bottom: var(--space-xl);
+    }
+
+    .dash-card {
+      background: var(--card-bg);
+      border: 1px solid var(--divider);
+      padding: var(--space-lg);
+    }
+
+    .dash-card-label {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: var(--space-xs);
+    }
+
+    .dash-card-value {
+      font-family: var(--font-heading);
+      font-size: 28px;
+      font-weight: 600;
+      color: var(--text-primary);
+      line-height: 1.20;
+    }
+
+    .dash-card-value.money {
+      color: var(--price-text);
+    }
+
+    .dash-card-value.positive {
+      color: var(--success-green);
+    }
+
+    .dash-card-value.negative {
+      color: var(--warning-red);
+    }
+
+    /* ===== TABELAS ===== */
+    .stock-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    .stock-table th {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      text-align: left;
+      padding: 10px 12px;
+      border-bottom: 2px solid var(--divider);
+      white-space: nowrap;
+    }
+
+    .stock-table td {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--divider);
+      color: var(--text-primary);
+      vertical-align: middle;
+    }
+
+    .stock-table tr:hover td {
+      background: rgba(218, 41, 28, 0.03);
+    }
+
+    .stock-table .text-right {
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .stock-table .text-muted {
+      color: var(--text-muted);
+    }
+
+    /* Status badges */
+    .badge {
+      display: inline-block;
+      padding: 3px 10px;
+      font-size: 11px;
+      font-weight: 600;
+      border-radius: var(--radius);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .badge-available {
+      background: rgba(3, 144, 74, 0.15);
+      color: var(--success-green);
+    }
+
+    .badge-sold {
+      background: rgba(77, 171, 247, 0.15);
+      color: var(--info-blue);
+    }
+
+    .badge-hidden {
+      background: rgba(241, 58, 44, 0.12);
+      color: var(--warning-red);
+    }
+
+    /* ===== AÇÕES ===== */
+    .action-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-lg);
+      align-items: center;
+    }
+
+    .action-bar .btn-sm {
+      font-size: 12px;
+      padding: 6px 14px;
+    }
+
+    /* ===== FILTROS ===== */
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-lg);
+      align-items: flex-end;
+    }
+
+    .filter-bar select,
+    .filter-bar input {
+      font-family: var(--font-heading);
+      font-size: 12px;
+      padding: 6px 10px;
+      background: var(--card-bg);
+      color: var(--text-primary);
+      border: 1px solid var(--input-border);
+      border-radius: var(--radius);
+      outline: none;
+    }
+
+    .filter-bar select:focus,
+    .filter-bar input:focus {
+      border-color: var(--ferrari-red);
+    }
+
+    /* ===== RESPONSIVO ===== */
+    @media (max-width: 768px) {
+      .stock-layout {
+        flex-direction: column;
+      }
+      .sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid var(--divider);
+        padding: var(--space-sm) 0;
+      }
+      .sidebar-nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2px;
+        padding: 0 var(--space-sm);
+      }
+      .sidebar-nav a {
+        padding: 6px 12px;
+        border-left: none;
+        border-bottom: 2px solid transparent;
+        font-size: 12px;
+      }
+      .sidebar-nav a.active {
+        border-left-color: transparent;
+        border-bottom-color: var(--ferrari-red);
+      }
+      .sidebar-title { display: none; }
+      .sidebar-divider { display: none; }
+      .stock-content {
+        max-width: 100vw;
+        padding: var(--space-md);
+      }
+      .dashboard-cards {
+        grid-template-columns: 1fr 1fr;
+      }
+      .stock-table {
+        font-size: 12px;
+      }
+      .stock-table th,
+      .stock-table td {
+        padding: 6px 8px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .dashboard-cards {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Messages */
+    .messages {
+      list-style: none;
+      margin-bottom: var(--space-md);
+    }
+    .messages li {
+      padding: 10px 14px;
+      border-radius: var(--radius);
+      font-size: 13px;
+      margin-bottom: 4px;
+    }
+    .messages .success {
+      background: rgba(3, 144, 74, 0.12);
+      color: var(--success-green);
+      border: 1px solid rgba(3, 144, 74, 0.2);
+    }
+    .messages .error {
+      background: rgba(241, 58, 44, 0.12);
+      color: var(--warning-red);
+      border: 1px solid rgba(241, 58, 44, 0.2);
+    }
+  </style>
+  {% block extra_css %}{% endblock %}
+</head>
+<body>
+  <div class="background-overlay"></div>
+
+  <!-- ===== NAVBAR (mesma do site) ===== -->
+  <nav class="navbar">
+    <div class="navbar-left">
+      <a href="{% url 'motos_list' %}" class="navbar-brand">
+        <img src="{% static 'images/LOGO-JJT-NOVO-FUNDO-ESCURO.png' %}" alt="JJT" class="navbar-logo">
+        <span class="navbar-title">JJT Motorcycles</span>
+      </a>
+    </div>
+    <div class="navbar-center">
+      <a href="{% url 'motos_list' %}" class="navbar-link">Motos</a>
+      <a href="{% url 'stockcontrol:dashboard' %}" class="navbar-link" style="color:var(--ferrari-red);font-weight:700;">Controle</a>
+    </div>
+    <div class="navbar-right">
+      <button type="button" class="btn btn-ghost btn-sm theme-toggle" onclick="toggleTheme()"
+              aria-label="Alternar tema"
+              style="padding:6px 10px;font-size:16px;line-height:1;min-width:auto;">
+        <span id="themeIcon">&#9790;</span>
+      </button>
+      {% if user.is_authenticated %}
+        <span class="navbar-greeting">{{ user.username }}</span>
+        <a href="{% url 'logout' %}" class="btn btn-sm" style="color:var(--text-muted);padding:6px 10px;">Sair</a>
+      {% endif %}
+    </div>
+  </nav>
+
+  <!-- ===== LAYOUT COM SIDEBAR ===== -->
+  <div class="stock-layout">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-title">Controle</div>
+      <ul class="sidebar-nav">
+        <li>
+          <a href="{% url 'stockcontrol:dashboard' %}" class="{% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}">
+            <span class="nav-icon">&#9632;</span> Dashboard
+          </a>
+        </li>
+        <li>
+          <a href="{% url 'stockcontrol:stock_list' %}" class="{% if request.resolver_match.url_name == 'stock_list' %}active{% endif %}">
+            <span class="nav-icon">&#9776;</span> Estoque (Planilha)
+          </a>
+        </li>
+        <li>
+          <a href="{% url 'stockcontrol:expense_list' %}">
+            <span class="nav-icon">&#36;</span> Despesas
+          </a>
+        </li>
+      </ul>
+
+      <div class="sidebar-divider"></div>
+      <div class="sidebar-title">Ações Rápidas</div>
+      <ul class="sidebar-nav">
+        <li>
+          <a href="{% url 'new_moto' %}">
+            <span class="nav-icon">&#43;</span> Nova Moto
+          </a>
+        </li>
+        <li>
+          <a href="{% url 'stockcontrol:expense_new' %}">
+            <span class="nav-icon">&#43;</span> Nova Despesa
+          </a>
+        </li>
+      </ul>
+
+      <div class="sidebar-divider"></div>
+      <ul class="sidebar-nav">
+        <li>
+          <a href="{% url 'motos_list' %}">
+            <span class="nav-icon">&#8592;</span> Voltar ao Site
+          </a>
+        </li>
+      </ul>
+    </aside>
+
+    <!-- Conteúdo -->
+    <main class="stock-content">
+      {% if messages %}
+        <ul class="messages">
+          {% for message in messages %}
+            <li class="{{ message.tags }}">{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+
+      {% block content %}{% endblock %}
+    </main>
+
+  </div>
+
+<script>
+function toggleTheme() {
+  var html = document.documentElement;
+  var current = html.getAttribute('data-theme');
+  var next = (current === 'dark') ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+  localStorage.setItem('theme', next);
+  var icon = document.getElementById('themeIcon');
+  if (icon) icon.textContent = (next === 'dark') ? '\u263E' : '\u2600';
+}
+(function() {
+  var theme = document.documentElement.getAttribute('data-theme') || 'dark';
+  var icon = document.getElementById('themeIcon');
+  if (icon) icon.textContent = (theme === 'dark') ? '\u263E' : '\u2600';
+})();
+</script>
+{% block extra_js %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,7 @@
+from django.apps import AppConfig
+
+
+class StockcontrolConfig(AppConfig):
+    default_auto_field = 'django.db.models.BigAutoField'
+    name = 'stockcontrol'
+    verbose_name = 'Controle de Estoque e Custos'

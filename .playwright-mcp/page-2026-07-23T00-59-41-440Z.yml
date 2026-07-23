@@ -1,0 +1,103 @@
+- generic [ref=f27e2]:
+  - navigation [ref=f27e3]:
+    - link "JJT JJT Motorcycles" [ref=f27e5] [cursor=pointer]:
+      - /url: /motos/
+      - img "JJT" [ref=f27e6]
+      - generic [ref=f27e7]: JJT Motorcycles
+    - generic [ref=f27e8]:
+      - link "Motos" [ref=f27e9] [cursor=pointer]:
+        - /url: /motos/
+      - link "WhatsApp" [ref=f27e10] [cursor=pointer]:
+        - /url: https://wa.me/5519997797611
+    - generic [ref=f27e11]:
+      - generic [ref=f27e12]: mborges
+      - link "+ Nova Moto" [ref=f27e13] [cursor=pointer]:
+        - /url: /new_moto/
+      - link "Novo user" [ref=f27e14] [cursor=pointer]:
+        - /url: /register/
+      - link "Sair" [ref=f27e15] [cursor=pointer]:
+        - /url: /logout/
+  - main [ref=f27e16]:
+    - generic [ref=f27e18]:
+      - heading "Editar Moto" [level=1] [ref=f27e19]
+      - paragraph [ref=f27e20]: Honda CB 1000R
+      - generic [ref=f27e21]:
+        - generic [ref=f27e22]:
+          - generic [ref=f27e23]:
+            - generic [ref=f27e24]: Model
+            - textbox "Model" [ref=f27e25]: CB 1000R
+          - generic [ref=f27e26]:
+            - generic [ref=f27e27]: Marca
+            - textbox "Marca" [ref=f27e28]: Honda
+          - generic [ref=f27e29]:
+            - generic [ref=f27e30]: Factor year
+            - spinbutton "Factor year" [ref=f27e31]: "2024"
+          - generic [ref=f27e32]:
+            - generic [ref=f27e33]: Model year
+            - spinbutton "Model year" [ref=f27e34]: "2025"
+          - generic [ref=f27e35]:
+            - generic [ref=f27e36]: Plate
+            - textbox "Plate" [ref=f27e37]: ABC-1234
+          - generic [ref=f27e38]:
+            - generic [ref=f27e39]: Value
+            - spinbutton "Value" [ref=f27e40]
+          - generic [ref=f27e41]:
+            - generic [ref=f27e42]: Bio
+            - generic [ref=f27e43]:
+              - textbox "Bio" [ref=f27e44]: A CB 1000R 2025 combina design esportivo com tecnologia de ponta, oferecendo desempenho incomparável nas estradas. Sua motor de 1000 cc entrega impressionantes 140 hp, proporcionando aceleração vigorosa e potência para quem busca emoção.
+              - generic [ref=f27e45]:
+                - button "⚡ Gerar descrição técnica com IA" [ref=f27e46] [cursor=pointer]
+                - generic [ref=f27e48]: OpenRouter
+          - generic [ref=f27e49]:
+            - generic [ref=f27e50]: Photo
+            - text: "Atualmente:"
+            - link "motos/Screenshot_2026-07-22_21-12-44.png" [ref=f27e51] [cursor=pointer]:
+              - /url: /media/motos/Screenshot_2026-07-22_21-12-44.png
+            - checkbox "Limpar" [ref=f27e52]
+            - generic [ref=f27e53]: Limpar
+            - text: "Modificar:"
+            - button "Photo" [ref=f27e54]
+          - generic [ref=f27e55]:
+            - generic [ref=f27e56]: Photo2
+            - text: "Atualmente:"
+            - link "motos/Screenshot_2026-07-22_21-13-06.png" [ref=f27e57] [cursor=pointer]:
+              - /url: /media/motos/Screenshot_2026-07-22_21-13-06.png
+            - checkbox "Limpar" [ref=f27e58]
+            - generic [ref=f27e59]: Limpar
+            - text: "Modificar:"
+            - button "Photo2" [ref=f27e60]
+          - generic [ref=f27e61]:
+            - generic [ref=f27e62]: Photo3
+            - button "Photo3" [ref=f27e63]
+          - generic [ref=f27e64]:
+            - generic [ref=f27e65]: Photo4
+            - button "Photo4" [ref=f27e66]
+          - generic [ref=f27e67]:
+            - generic [ref=f27e68]: Photo5
+            - button "Photo5" [ref=f27e69]
+          - generic [ref=f27e70]:
+            - generic [ref=f27e71]: Photo6
+            - button "Photo6" [ref=f27e72]
+        - generic [ref=f27e73]:
+          - button "Salvar Alterações" [ref=f27e74] [cursor=pointer]
+          - link "Ver Detalhes" [ref=f27e75] [cursor=pointer]:
+            - /url: /motos/5/
+          - link "Deletar" [ref=f27e76] [cursor=pointer]:
+            - /url: /motos/5/delete/
+          - link "Cancelar" [ref=f27e77] [cursor=pointer]:
+            - /url: /motos/
+  - contentinfo [ref=f27e78]:
+    - generic [ref=f27e79]:
+      - generic [ref=f27e80]:
+        - img "JJT" [ref=f27e81]
+        - generic [ref=f27e82]: JJT Motorcycles
+      - generic [ref=f27e83]:
+        - generic [ref=f27e84]: JJT Motos © 2025 — Todos os direitos reservados.
+        - generic [ref=f27e85]: "CNPJ: 00.000.000/0001-00 | Rua das Motos, 123, São Paulo - SP"
+      - generic [ref=f27e86]:
+        - link "GitHub" [ref=f27e87] [cursor=pointer]:
+          - /url: https://github.com/Marcel0Borg3s
+        - text: "|"
+        - link "LinkedIn" [ref=f27e88] [cursor=pointer]:
+          - /url: https://www.linkedin.com/in/mborgesx
+    - generic [ref=f27e89]: Desenvolvido por Marcelo Borges

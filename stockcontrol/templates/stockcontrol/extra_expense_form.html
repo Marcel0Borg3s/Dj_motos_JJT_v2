@@ -1,0 +1,44 @@
+{% extends "stockcontrol/base_stock.html" %}
+{% load static %}
+
+{% block title %}JJT — {% if object.pk %}Editar Despesa{% else %}Nova Despesa{% endif %}{% endblock %}
+
+{% block content %}
+<h1>{% if object.pk %}Editar Despesa{% else %}Nova Despesa{% endif %}</h1>
+
+<form method="post">
+  {% csrf_token %}
+
+  <div class="dashboard-cards">
+    {% for field in form %}
+      <div class="dash-card" style="padding:var(--space-md);">
+        <label for="{{ field.id_for_label }}" class="dash-card-label" style="margin-bottom:var(--space-sm);">{{ field.label }}</label>
+        {% if field.field.widget.input_type == 'select' %}
+          <select name="{{ field.name }}" id="{{ field.id_for_label }}" class="form-select">
+            {% for option in field %}
+              {{ option }}
+            {% endfor %}
+          </select>
+        {% elif field.field.widget.input_type == 'textarea' %}
+          <textarea name="{{ field.name }}" id="{{ field.id_for_label }}" class="form-textarea" style="width:100%;">{{ field.value|default:'' }}</textarea>
+        {% else %}
+          {{ field }}
+        {% endif %}
+        {% if field.errors %}
+          {% for error in field.errors %}
+            <small style="color:var(--warning-red);font-size:11px;display:block;margin-top:2px;">{{ error }}</small>
+          {% endfor %}
+        {% endif %}
+        {% if field.help_text %}
+          <small style="color:var(--text-tertiary);font-size:11px;display:block;margin-top:2px;">{{ field.help_text }}</small>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+
+  <div class="action-bar" style="margin-top:var(--space-lg);">
+    <button type="submit" class="btn btn-red">Salvar</button>
+    <a href="{% url 'stockcontrol:expense_list' %}" class="btn btn-ghost">Cancelar</a>
+  </div>
+</form>
+{% endblock %}

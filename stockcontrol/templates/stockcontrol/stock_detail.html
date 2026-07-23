@@ -1,0 +1,136 @@
+{% extends "stockcontrol/base_stock.html" %}
+{% load static %}
+
+{% block title %}JJT — {{ stock.moto.brand }} {{ stock.moto.model }}{% endblock %}
+
+{% block content %}
+<div class="action-bar">
+  <a href="{% url 'stockcontrol:dashboard' %}" class="btn btn-ghost btn-sm">&larr; Dashboard</a>
+  <a href="{% url 'stockcontrol:stock_list' %}" class="btn btn-ghost btn-sm">Planilha</a>
+  <span style="flex:1;"></span>
+  <a href="{% url 'stockcontrol:stock_cost_edit' pk=stock.pk %}" class="btn btn-red btn-sm">Editar Custos</a>
+  {% if not stock.is_sold %}
+    <a href="{% url 'stockcontrol:stock_sale' pk=stock.pk %}" class="btn btn-green btn-sm">Registrar Venda</a>
+  {% endif %}
+</div>
+
+<h1>{{ stock.moto.brand }} {{ stock.moto.model }}</h1>
+<p style="color:var(--text-muted);margin-bottom:var(--space-lg);font-size:13px;">
+  Ano {{ stock.moto.factor_year|default:'---' }} | Placa: {{ stock.moto.plate|default:'---' }}
+  | Status: <span class="badge badge-{{ stock.sale_status }}">
+    {% if stock.sale_status == 'available' %}Disponível{% elif stock.sale_status == 'sold' %}Vendida{% else %}Oculta{% endif %}
+  </span>
+</p>
+
+<!-- Grid de custos -->
+<div class="dashboard-cards">
+  <div class="dash-card">
+    <div class="dash-card-label">Custo de aquisição</div>
+    <div class="dash-card-value money">R$ {{ stock.acquisition_cost|floatformat:2 }}</div>
+  </div>
+  <div class="dash-card">
+    <div class="dash-card-label">Despesas de documento</div>
+    <div class="dash-card-value money">R$ {{ stock.document_fees|floatformat:2 }}</div>
+  </div>
+  <div class="dash-card">
+    <div class="dash-card-label">Transporte/frete</div>
+    <div class="dash-card-value money">R$ {{ stock.transport_cost|floatformat:2 }}</div>
+  </div>
+  <div class="dash-card">
+    <div class="dash-card-label">Manutenção/preparação</div>
+    <div class="dash-card-value money">R$ {{ stock.maintenance_cost|floatformat:2 }}</div>
+  </div>
+  <div class="dash-card">
+    <div class="dash-card-label">Multas</div>
+    <div class="dash-card-value money">R$ {{ stock.fines_cost|floatformat:2 }}</div>
+  </div>
+  <div class="dash-card">
+    <div class="dash-card-label">Outras despesas</div>
+    <div class="dash-card-value money">R$ {{ stock.other_costs|floatformat:2 }}</div>
+  </div>
+</div>
+
+<!-- Totais -->
+<div class="dashboard-cards" style="margin-top:var(--space-md);">
+  <div class="dash-card" style="border-color:var(--ferrari-red);">
+    <div class="dash-card-label">Custo total (sem despesas extras)</div>
+    <div class="dash-card-value money">R$ {{ stock.total_cost|floatformat:2 }}</div>
+  </div>
+  {% if extra_expenses %}
+    <div class="dash-card" style="border-color:var(--warning-red);">
+      <div class="dash-card-label">Despesas extras vinculadas</div>
+      <div class="dash-card-value negative">R$ {{ extra_expenses|length }}</div>
+    </div>
+  {% endif %}
+  {% if stock.is_sold %}
+    <div class="dash-card" style="border-color:var(--success-green);">
+      <div class="dash-card-label">Valor da venda</div>
+      <div class="dash-card-value positive">R$ {{ stock.sale_value|floatformat:2 }}</div>
+    </div>
+    <div class="dash-card" style="border-color:var(--success-green);">
+      <div class="dash-card-label">Lucro</div>
+      <div class="dash-card-value positive">R$ {{ stock.profit|floatformat:2 }}</div>
+    </div>
+  {% endif %}
+</div>
+
+<!-- Observações -->
+{% if stock.additional_notes %}
+  <div style="background:var(--card-bg);border:1px solid var(--divider);padding:var(--space-md);margin-top:var(--space-lg);">
+    <div style="font-family:var(--font-body);font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Observações</div>
+    <p style="color:var(--text-primary);font-size:13px;line-height:1.60;">{{ stock.additional_notes }}</p>
+  </div>
+{% endif %}
+
+<!-- Despesas extras vinculadas -->
+{% if extra_expenses %}
+  <h2 style="font-size:16px;font-weight:500;color:var(--text-primary);margin:var(--space-xl) 0 var(--space-md);">Despesas Extras Vinculadas</h2>
+  <table class="stock-table">
+    <thead>
+      <tr>
+        <th>Descrição</th>
+        <th>Categoria</th>
+        <th class="text-right">Valor</th>
+        <th>Data</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for e in extra_expenses %}
+        <tr>
+          <td>{{ e.description }}</td>
+          <td>{{ e.get_category_display }}</td>
+          <td class="text-right">R$ {{ e.amount|floatformat:2 }}</td>
+          <td>{{ e.date|date:'d/m/Y' }}</td>
+          <td>
+            <a href="{% url 'stockcontrol:expense_edit' pk=e.pk %}" class="btn btn-ghost btn-sm">Editar</a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endif %}
+
+<!-- Dados da venda -->
+{% if stock.is_sold %}
+  <h2 style="font-size:16px;font-weight:500;color:var(--text-primary);margin:var(--space-xl) 0 var(--space-md);">Dados da Venda</h2>
+  <div class="dashboard-cards">
+    <div class="dash-card">
+      <div class="dash-card-label">Comprador</div>
+      <div class="dash-card-value" style="font-size:18px;">{{ stock.buyer_name|default:'---' }}</div>
+    </div>
+    <div class="dash-card">
+      <div class="dash-card-label">CPF/CNPJ</div>
+      <div class="dash-card-value" style="font-size:18px;">{{ stock.buyer_document|default:'---' }}</div>
+    </div>
+    <div class="dash-card">
+      <div class="dash-card-label">Pagamento</div>
+      <div class="dash-card-value" style="font-size:18px;">{{ stock.get_payment_method_display|default:'---' }}</div>
+    </div>
+    <div class="dash-card">
+      <div class="dash-card-label">Data</div>
+      <div class="dash-card-value" style="font-size:18px;">{{ stock.sale_date|date:'d/m/Y'|default:'---' }}</div>
+    </div>
+  </div>
+{% endif %}
+{% endblock %}

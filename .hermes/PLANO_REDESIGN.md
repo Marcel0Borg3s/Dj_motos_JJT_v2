@@ -197,7 +197,64 @@ Página protegida por login com:
 
 ---
 
-## Cronograma Sugerido
+## FASE 1.5 — Dark/Light Mode Toggle
+
+Após o redesign visual Ferrari, adicionar toggle entre tema escuro (padrão) e
+claro, similar ao que foi feito no Hakyia Plann (com `data-theme` no `<html>`,
+`localStorage` para persistência e ícone de alternância no navbar).
+
+### Como funciona
+
+1. **HTML** — Tag `<html data-theme="dark">` define o tema atual.
+   O valor é lido do `localStorage` ao carregar a página.
+
+2. **CSS** — O `ferrari.css` é reestruturado com:
+   - `:root` — tokens fixos (cores base, tipografia, spacing, radii)
+   - `[data-theme="dark"]` — variáveis semânticas do tema escuro (já existente)
+   - `[data-theme="light"]` — variáveis semânticas do tema claro (novo)
+
+3. **Navbar** — Botão com ícone 🌙/☀️ alterna entre os temas.
+
+4. **JavaScript** — Toggle:
+   - Altera `document.documentElement.dataset.theme`
+   - Salva no `localStorage.getItem/setItem('theme', ...)`
+   - Executa antes do render (inline no `<head>`) pra evitar flash
+
+### Paletas
+
+| Variável | Dark (atual) | Light (novo) |
+|----------|-------------|--------------|
+| `--page-bg` | `#181818` (near-black) | `#FFFFFF` (pure-white) |
+| `--card-bg` | `#303030` (dark-surface) | `#FFFFFF` (pure-white) |
+| `--text-primary` | `#FFFFFF` | `#181818` |
+| `--text-secondary` | `#D2D2D2` | `#666666` |
+| `--text-muted` | `#8F8F8F` | `#8F8F8F` |
+| `--text-tertiary` | `#969696` | `#969696` |
+| `--divider` | `#444444` | `#D2D2D2` (light-gray) |
+| `--nav-bg` | `#000000` | `#FFFFFF` (borda inferior) |
+| Input bg | transparent | transparent |
+| Input border | `#444444` | `#CCCCCC` |
+| Card border | `#444444` | `#D2D2D2` |
+| Footer bg | `#000000` | `#F5F5F5` |
+
+### Background logo
+
+Em dark mode: `LOGO-JJT-NOVO-FUNDO-ESCURO.png` (opacity 0.035)
+Em light mode: `LOGO-JJT-NOVO-FUNDO-CLARO.png` (opacity 0.04, mais sutil)
+
+### Arquivos a modificar
+
+| Arquivo | O que muda |
+|---------|-----------|
+| `app/static/css/ferrari.css` | Adicionar `[data-theme="light"]` com vars + ajustes de cor em componentes |
+| `app/templates/base.html` | `<html data-theme="dark">` + JS inline anti-flash + toggle na navbar |
+
+### Etapas
+
+1. Reestruturar `ferrari.css` — agrupar vars em `:root`, `[data-theme="dark"]`, `[data-theme="light"]`
+2. Adicionar cores light para todos os componentes (cards, inputs, botões, navbar, footer)
+3. Atualizar `base.html` — `data-theme` no html, script anti-flash, toggle na navbar
+4. Testar alternância e persistência (F5 mantém o tema)
 
 ```
                     FASE 1 (Redesign Visual)

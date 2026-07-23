@@ -1,0 +1,80 @@
+{% extends "stockcontrol/base_stock.html" %}
+{% load static %}
+
+{% block title %}JJT — Planilha de Estoque{% endblock %}
+
+{% block content %}
+<h1>Planilha de Estoque</h1>
+
+<div class="action-bar">
+  <a href="?status=available" class="btn btn-sm {% if status_atual == 'available' or not status_atual %}btn-red{% else %}btn-ghost{% endif %}">Disponíveis</a>
+  <a href="?status=sold" class="btn btn-sm {% if status_atual == 'sold' %}btn-red{% else %}btn-ghost{% endif %}">Vendidas</a>
+  <a href="?status=hidden" class="btn btn-sm {% if status_atual == 'hidden' %}btn-red{% else %}btn-ghost{% endif %}">Ocultas</a>
+  <a href="{% url 'stockcontrol:stock_list' %}" class="btn btn-sm btn-ghost">Todas</a>
+  <span style="flex:1;"></span>
+  <a href="{% url 'new_moto' %}" class="btn btn-red btn-sm">+ Nova Moto</a>
+</div>
+
+{% if stocks %}
+  <div style="overflow-x:auto;">
+    <table class="stock-table">
+      <thead>
+        <tr>
+          <th>Moto</th>
+          <th>Ano</th>
+          <th class="text-right">Custo Total</th>
+          <th class="text-right">Valor Venda</th>
+          <th class="text-right">Lucro</th>
+          <th class="text-right">Margem</th>
+          <th>Status</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for s in stocks %}
+          <tr>
+            <td><strong>{{ s.moto.brand }} {{ s.moto.model }}</strong></td>
+            <td>{{ s.moto.factor_year|default:'---' }}</td>
+            <td class="text-right">R$ {{ s.total_cost|floatformat:2 }}</td>
+            <td class="text-right">
+              {% if s.sale_value %}
+                R$ {{ s.sale_value|floatformat:2 }}
+              {% else %}
+                <span class="text-muted">---</span>
+              {% endif %}
+            </td>
+            <td class="text-right" style="color:{% if s.profit and s.profit > 0 %}var(--success-green){% elif s.profit and s.profit <= 0 %}var(--warning-red){% else %}var(--text-muted){% endif %};">
+              {% if s.profit is not None %}
+                R$ {{ s.profit|floatformat:2 }}
+              {% else %}
+                <span class="text-muted">---</span>
+              {% endif %}
+            </td>
+            <td class="text-right">
+              {% if s.profit_margin is not None %}
+                {{ s.profit_margin|floatformat:1 }}%
+              {% else %}
+                <span class="text-muted">---</span>
+              {% endif %}
+            </td>
+            <td>
+              <span class="badge badge-{{ s.sale_status }}">
+                {% if s.sale_status == 'available' %}Disponível{% elif s.sale_status == 'sold' %}Vendida{% else %}Oculta{% endif %}
+              </span>
+            </td>
+            <td>
+              <a href="{% url 'stockcontrol:stock_detail' pk=s.pk %}" class="btn btn-ghost btn-sm">Ver</a>
+              <a href="{% url 'stockcontrol:stock_cost_edit' pk=s.pk %}" class="btn btn-ghost btn-sm">Custos</a>
+              {% if not s.is_sold %}
+                <a href="{% url 'stockcontrol:stock_sale' pk=s.pk %}" class="btn btn-green btn-sm">Vender</a>
+              {% endif %}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% else %}
+  <p style="color:var(--text-muted);">Nenhuma moto encontrada no estoque com este filtro.</p>
+{% endif %}
+{% endblock %}

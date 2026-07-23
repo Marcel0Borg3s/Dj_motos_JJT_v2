@@ -1,0 +1,72 @@
+{% extends "stockcontrol/base_stock.html" %}
+{% load static %}
+
+{% block title %}JJT — Despesas{% endblock %}
+
+{% block content %}
+<h1>Despesas Extras</h1>
+
+<div class="action-bar">
+  <a href="{% url 'stockcontrol:expense_new' %}" class="btn btn-red btn-sm">+ Nova Despesa</a>
+  <span style="flex:1;"></span>
+  <form method="GET" style="display:flex;gap:8px;align-items:center;">
+    <select name="categoria" onchange="this.form.submit()" style="font-size:12px;padding:6px 10px;">
+      <option value="">Todas as categorias</option>
+      {% for key, label in form.fields.category.choices %}
+        {% if key %}
+          <option value="{{ key }}" {% if categoria_atual == key %}selected{% endif %}>{{ label }}</option>
+        {% endif %}
+      {% endfor %}
+    </select>
+    {% if categoria_atual %}
+      <a href="{% url 'stockcontrol:expense_list' %}" class="btn btn-ghost btn-sm">Limpar</a>
+    {% endif %}
+  </form>
+</div>
+
+{% if expenses %}
+  <p style="color:var(--text-muted);margin-bottom:var(--space-md);font-size:12px;">
+    Total de despesas listadas: <strong style="color:var(--warning-red);">R$ {{ total|floatformat:2 }}</strong>
+  </p>
+
+  <div style="overflow-x:auto;">
+    <table class="stock-table">
+      <thead>
+        <tr>
+          <th>Descrição</th>
+          <th>Categoria</th>
+          <th>Moto</th>
+          <th class="text-right">Valor</th>
+          <th>Data</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for e in expenses %}
+          <tr>
+            <td><strong>{{ e.description }}</strong></td>
+            <td>{{ e.get_category_display }}</td>
+            <td>
+              {% if e.moto %}
+                <a href="{% url 'stockcontrol:stock_detail' pk=e.moto.stock.pk %}" style="color:var(--ferrari-red);">
+                  {{ e.moto.brand }} {{ e.moto.model }}
+                </a>
+              {% else %}
+                <span class="text-muted">Geral</span>
+              {% endif %}
+            </td>
+            <td class="text-right" style="color:var(--warning-red);">R$ {{ e.amount|floatformat:2 }}</td>
+            <td>{{ e.date|date:'d/m/Y' }}</td>
+            <td>
+              <a href="{% url 'stockcontrol:expense_edit' pk=e.pk %}" class="btn btn-ghost btn-sm">Editar</a>
+              <a href="{% url 'stockcontrol:expense_delete' pk=e.pk %}" class="btn btn-danger btn-sm" style="padding:4px 10px;font-size:11px;">Excluir</a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% else %}
+  <p style="color:var(--text-muted);">Nenhuma despesa cadastrada. <a href="{% url 'stockcontrol:expense_new' %}" style="color:var(--ferrari-red);">Cadastre a primeira</a>.</p>
+{% endif %}
+{% endblock %}

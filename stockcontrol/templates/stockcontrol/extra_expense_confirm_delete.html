@@ -1,0 +1,26 @@
+{% extends "stockcontrol/base_stock.html" %}
+{% load static %}
+
+{% block title %}JJT — Excluir Despesa{% endblock %}
+
+{% block content %}
+<div style="max-width:500px;margin:var(--space-xl) auto;text-align:center;">
+  <div style="background:var(--card-bg);border:1px solid var(--divider);padding:var(--space-xl);">
+    <div style="font-size:40px;margin-bottom:var(--space-md);">&#9888;</div>
+    <h1 style="font-size:20px;font-weight:500;color:var(--text-primary);margin-bottom:var(--space-md);">Excluir Despesa</h1>
+    <p style="font-size:13px;color:var(--text-tertiary);line-height:1.60;margin-bottom:var(--space-lg);">
+      Tem certeza que deseja excluir a despesa<br>
+      <strong style="color:var(--text-primary);">{{ object.description }}</strong>?
+    </p>
+    <p style="font-size:12px;color:var(--warning-red);margin-bottom:var(--space-lg);">Esta ação não pode ser desfeita.</p>
+
+    <form method="post">
+      {% csrf_token %}
+      <div style="display:flex;gap:var(--space-sm);justify-content:center;">
+        <button type="submit" class="btn btn-danger">Sim, Excluir</button>
+        <a href="{% url 'stockcontrol:expense_list' %}" class="btn btn-ghost">Cancelar</a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

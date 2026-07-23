@@ -1,0 +1,58 @@
+{% extends "stockcontrol/base_stock.html" %}
+{% load static %}
+
+{% block title %}JJT — {% if object.pk %}Editar Custos{% else %}Novos Custos{% endif %}{% endblock %}
+
+{% block content %}
+<h1>{% if object.pk %}Editar Custos{% else %}Novos Custos{% endif %}</h1>
+<p style="color:var(--text-muted);margin-bottom:var(--space-lg);font-size:13px;">
+  {{ object.moto.brand }} {{ object.moto.model }} ({{ object.moto.factor_year|default:'---' }})
+</p>
+
+<form method="post">
+  {% csrf_token %}
+
+  <div class="dashboard-cards">
+    {% for field in form %}
+      {% if field.name != 'additional_notes' %}
+        <div class="dash-card" style="padding:var(--space-md);">
+          <label for="{{ field.id_for_label }}" class="dash-card-label" style="margin-bottom:var(--space-sm);">{{ field.label }}</label>
+          {{ field }}
+          {% if field.errors %}
+            {% for error in field.errors %}
+              <small style="color:var(--warning-red);font-size:11px;display:block;margin-top:2px;">{{ error }}</small>
+            {% endfor %}
+          {% endif %}
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+
+  <!-- Observações -->
+  {% for field in form %}
+    {% if field.name == 'additional_notes' %}
+      <div style="margin-top:var(--space-md);">
+        <label for="{{ field.id_for_label }}" class="dash-card-label" style="margin-bottom:var(--space-sm);">{{ field.label }}</label>
+        {{ field }}
+      </div>
+    {% endif %}
+  {% endfor %}
+
+  <div class="action-bar" style="margin-top:var(--space-lg);">
+    <button type="submit" class="btn btn-red">Salvar Custos</button>
+    <a href="{% url 'stockcontrol:stock_detail' pk=object.pk %}" class="btn btn-ghost">Cancelar</a>
+  </div>
+</form>
+
+<script>
+// Atualiza o total em tempo real (opcional)
+document.addEventListener('DOMContentLoaded', function() {
+  var inputs = document.querySelectorAll('input[type="number"]');
+  inputs.forEach(function(inp) {
+    inp.addEventListener('input', function() {
+      // Placeholder para futura função de cálculo ao vivo
+    });
+  });
+});
+</script>
+{% endblock %}

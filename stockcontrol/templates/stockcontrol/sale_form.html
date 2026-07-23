@@ -1,0 +1,50 @@
+{% extends "stockcontrol/base_stock.html" %}
+{% load static %}
+
+{% block title %}JJT — Registrar Venda{% endblock %}
+
+{% block content %}
+<h1>Registrar Venda</h1>
+<p style="color:var(--text-muted);margin-bottom:var(--space-lg);font-size:13px;">
+  {{ object.moto.brand }} {{ object.moto.model }} ({{ object.moto.factor_year|default:'---' }})
+</p>
+
+<!-- Resumo de custos -->
+<div class="dashboard-cards" style="margin-bottom:var(--space-lg);">
+  <div class="dash-card">
+    <div class="dash-card-label">Custo total</div>
+    <div class="dash-card-value money">R$ {{ custo_total|floatformat:2 }}</div>
+  </div>
+</div>
+
+<form method="post">
+  {% csrf_token %}
+
+  <div class="dashboard-cards">
+    {% for field in form %}
+      <div class="dash-card" style="padding:var(--space-md);">
+        <label for="{{ field.id_for_label }}" class="dash-card-label" style="margin-bottom:var(--space-sm);">{{ field.label }}</label>
+        {% if field.field.widget.input_type == 'select' %}
+          <select name="{{ field.name }}" id="{{ field.id_for_label }}" class="form-select">
+            {% for option in field %}
+              {{ option }}
+            {% endfor %}
+          </select>
+        {% else %}
+          {{ field }}
+        {% endif %}
+        {% if field.errors %}
+          {% for error in field.errors %}
+            <small style="color:var(--warning-red);font-size:11px;display:block;margin-top:2px;">{{ error }}</small>
+          {% endfor %}
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+
+  <div class="action-bar" style="margin-top:var(--space-lg);">
+    <button type="submit" class="btn btn-green">Confirmar Venda</button>
+    <a href="{% url 'stockcontrol:stock_detail' pk=object.pk %}" class="btn btn-ghost">Cancelar</a>
+  </div>
+</form>
+{% endblock %}
