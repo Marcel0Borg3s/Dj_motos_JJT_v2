@@ -146,10 +146,29 @@
                 {% endif %}
               </div>
             {% elif field.field.widget.input_type == 'number' or field.name == 'factor_year' or field.name == 'model_year' or field.name == 'value' %}
+              {% if field.name == 'value' %}
+              <div style="display:flex;align-items:center;gap:10px;">
+                <input type="number" name="{{ field.name }}" id="{{ field.id_for_label }}"
+                       class="form-input{% if field.errors %} form-input-error{% endif %}"
+                       value="{{ field.value|default:'' }}"
+                       placeholder="{{ field.label }}"
+                       step="0.01"
+                       style="flex:1;">
+                <label class="toggle-switch" style="flex-shrink:0;gap:6px;opacity:0.6;cursor:not-allowed;" title="Disponível após salvar">
+                  <input type="checkbox" checked disabled>
+                  <span class="toggle-track"></span>
+                </label>
+                <span style="font-size:11px;color:var(--success-green);white-space:nowrap;flex-shrink:0;">Visível</span>
+              </div>
+              <small style="color:var(--text-tertiary);font-size:11px;display:block;margin-top:2px;">
+                Configurar em <strong style="color:var(--ferrari-red);">Controle → Estoque</strong> após salvar
+              </small>
+              {% else %}
               <input type="number" name="{{ field.name }}" id="{{ field.id_for_label }}"
                      class="form-input{% if field.errors %} form-input-error{% endif %}"
                      value="{{ field.value|default:'' }}"
                      placeholder="{{ field.label }}">
+              {% endif %}
             {% else %}
               <input type="text" name="{{ field.name }}" id="{{ field.id_for_label }}"
                      class="form-input{% if field.errors %} form-input-error{% endif %}"
@@ -169,21 +188,6 @@
           </div>
         {% endfor %}
 
-      </div>
-
-      <!-- Preço no site público -->
-      <div class="form-group full" style="margin-top:var(--space-sm);padding-top:var(--space-md);border-top:1px solid var(--divider);">
-        <label class="form-label">Preço no site público</label>
-        <div style="display:flex;align-items:center;gap:12px;padding:6px 0;">
-          <label class="toggle-switch" style="cursor:not-allowed;gap:6px;opacity:0.6;" title="Disponível após salvar a moto">
-            <input type="checkbox" checked disabled>
-            <span class="toggle-track"></span>
-          </label>
-          <span style="font-size:12px;color:var(--success-green);">Visível (padrão)</span>
-          <small style="color:var(--text-tertiary);font-size:11px;margin-left:4px;">
-            · Disponível após salvar em <strong style="color:var(--ferrari-red);">Controle &rarr; Estoque</strong>
-          </small>
-        </div>
       </div>
 
       <div class="form-actions">
