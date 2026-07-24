@@ -18,3 +18,19 @@ venv/
 
 # Environment variables
 .env
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Hermes agent internal files
+.hermes/
+
+# Backups
+*_old.html
+
+# OS files
+.DS_Store
+Thumbs.db
