@@ -1,36 +1,13 @@
-# Byte-compiled / optimized / DLL files
-__pycache__/
-*.py[cod]
-*$py.class
 
-# Media files (uploaded by users)
-media/
 
-# Playwright test artifacts
-.playwright-mcp/
-
-# Virtual environment
+# lixo local (adicionado na limpeza)
 venv/
 .venv/
-
-# Database
+__pycache__/
+*.py[cod]
 *.sqlite3
-
-# Environment variables
+db.sqlite3
 .env
-
-# IDE and editor files
-.vscode/
-.idea/
-*.swp
-*.swo
-
-# Hermes agent internal files
-.hermes/
-
-# Backups
-*_old.html
-
-# OS files
 .DS_Store
-Thumbs.db
+.~lock*
+*.log
